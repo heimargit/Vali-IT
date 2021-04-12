@@ -36,6 +36,8 @@ public class Lesson2c {
     // kutsuge välja meetodit nextElement nii kaua kuni vastus tuleb 1
     // tagastage korduste arv + 1
     public static int getSeqLength(int x){
+
+
         return 0;
     }
 
@@ -43,9 +45,14 @@ public class Lesson2c {
     // x = 1 -> 4
     // x = 2 -> 1
     // x = 3 -> 10
-    public static int nextElement(int x){
+    public static int nextElement(int x) {
         // TODO tagasta sequence järgmine element
-        return 0;
+
+        if ((x % 2) == 0) {
+            return x / 2;
+        } else {
+            return 3*x + 1;
+        }
     }
 
 }
