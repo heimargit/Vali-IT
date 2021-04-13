@@ -13,12 +13,8 @@ public class eight_1 {
 
     public static int howOld(final String herOld) {
 
-        int age = 0;
-
-        age = age + herOld.charAt(0);
-
+        int age = Integer.parseInt(herOld.substring(0, 1));
         return age;
-
     }
 
 }
