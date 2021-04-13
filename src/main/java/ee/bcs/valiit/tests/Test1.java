@@ -7,7 +7,7 @@ public class Test1 {
 
         System.out.println(function(7));
 
-        System.out.println(Arrays.toString(addToArray(new int[]{4, 7,4},5)));
+        System.out.println(Arrays.toString(addToArray(new int[]{4, 7, 4}, 5)));
     }
 //    ÜL 1
 //    Tee funktsioon, mis tagastab boolean väärtuse ja võtab sisse ühe parameetri
@@ -27,6 +27,7 @@ public class Test1 {
 
         }
 
+
         /*LAHENDUS:
 
         if(x%3 == 0 && x%7 != 0){
@@ -39,8 +40,11 @@ public class Test1 {
 
          */
 
+    }
 
-
+    public int[] array(int[] n) {
+        n[0] = 0;
+        return n;
     }
 
     // ÜL2
@@ -48,12 +52,12 @@ public class Test1 {
     // Näiteks
     // sisend [1,2,3], 5
     // vastus [6,7,8]
-    public static int[] addToArray(int[] array, int x) {
+    public static int[] addToArray(int[] a, int x) {
 
-        for (int i = 0; i < array.length; i++) {
-            array[i] += x;
+        for (int i = 0; i < a.length; i++) {
+            a[i] += x;
         }
-        return array;
+        return a;
     }
 
 }

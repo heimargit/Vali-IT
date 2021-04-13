@@ -26,8 +26,18 @@ public class Lesson2c {
     // tehke tsükkel x -> y
     // kutsuge iga väärtuse korral välja meetodit getSeqLength
     // salvestage maha kõige suurem ja funktsiooni lõpus tagastage see
+
     public static int sequence3n(int x, int y) {
-        return 0;
+        int max = 0;
+
+        for(int i = x; i <= y; i++){
+            int sum = getSeqLength(i);
+
+            if (sum > max) {
+                max = sum;
+            }
+        }
+        return max;
     }
 
     // TODO 2
@@ -35,10 +45,15 @@ public class Lesson2c {
     // x = 2 -> 2
     // kutsuge välja meetodit nextElement nii kaua kuni vastus tuleb 1
     // tagastage korduste arv + 1
+
     public static int getSeqLength(int x){
+        int count = 1;
 
-
-        return 0;
+        while(x > 1){
+            x = nextElement(x);
+            count++;
+        }
+        return count;
     }
 
     // TODO 1

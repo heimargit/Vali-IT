@@ -164,17 +164,25 @@ public class Lesson2 {
 
     public static int sequence3n(int x, int y) {
 
-        int count = 0;
+        int max = 0;
 
-        if ((x % 2) == 0 || (y % 2) == 0) {
-            for (int i = 0; i < count; i++) {
-                x /= 2;
-                y /= 2;
+        for (int i = x; i <= y; i++) {
+            int count = 0;
+            int value = i;
+
+            while (value > 1) {
+                if (value % 2 == 0) {
+                    value = value / 2;
+                } else {
+                    value = value * 3 + 1;
+                }
+                count++;
             }
-
+            if (count > max) {
+                max = count;
+            }
         }
-
-        return 0;
+        return max;
     }
 
 

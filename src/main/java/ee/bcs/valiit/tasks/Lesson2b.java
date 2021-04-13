@@ -34,9 +34,10 @@ public class Lesson2b {
     }
 
     // TODO tagasta massiiv milles oleks numbrid 1,2,3,4,5
-    public int[] sampleArray() {
-        int[] array = {1, 2, 3, 4, 5};
-        return array;
+    public static int[] sampleArray() {
+        int[] x = {1, 2, 3, 4, 5};
+        return x;
+
 
 
         /*LAHENDUSVARIANT 2:
