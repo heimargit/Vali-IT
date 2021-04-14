@@ -1,6 +1,6 @@
 package ee.bcs.valiit.codewars;
 
-public class eight_1 {
+public class Eight {
     public static void main(String[] args) {
 
     }

@@ -45,7 +45,7 @@ public class Lesson4 {
                 // this has to display account balance of specific account
                 System.out.println("Display account balance. \nInsert the account number:");
                 String accountNr = scanner.nextLine();
-                Double getBalance = accountBalanceMap.get(accountNr);
+                double getBalance = accountBalanceMap.get(accountNr);
 
                 System.out.println("The balance of account number " + accountNr + " is:\n" + getBalance + " € \n");
 
@@ -61,10 +61,11 @@ public class Lesson4 {
                 scanner.nextLine();
 
                 if (amount > 0) {
-//                    Double accountBalance = accountBalanceMap.get(accountNr);
-//                    accountBalanceMap.put(accountNr, accountBalance + amount);
-//                    System.out.println(amount + " € has been added to account " + accountNr+ "\n" +
-//                            "New balance is: "+ (accountBalance + amount) + " €");
+                    double balance = accountBalanceMap.get(accountNr);
+                    balance = balance + amount;
+                    accountBalanceMap.replace(accountNr, balance);
+                    System.out.println(amount + " € has been added to account " + accountNr + "\n" +
+                            "New balance is: " + balance + " €");
                 } else {
                     System.out.println("This amount is not valid.\n");
                 }
@@ -80,8 +81,9 @@ public class Lesson4 {
                 System.out.println("Insert the withdraw amount:");
                 double amount = scanner.nextDouble();
                 scanner.nextLine();
+                double balance = accountBalanceMap.get(accountNr);
 
-                if (amount > 0) {
+                if (amount > 0 && balance >= amount) {
                     accountBalanceMap.put(accountNr, amount);
                     System.out.println(amount + " has been withdrawn from your account.\n");
                 } else {
