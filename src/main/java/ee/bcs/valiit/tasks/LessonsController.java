@@ -1,12 +1,17 @@
 package ee.bcs.valiit.tasks;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import ee.bcs.valiit.lessons.Employee;
+import org.springframework.web.bind.annotation.*;
+
+import javax.lang.model.element.Name;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class LessonsController {
+    public List<Employee> employeeList = new ArrayList<>();
+
+
 
     /*
     1. @RestController lisada klassi ette. See defineerib Springile, et tegemist on veebiaplikatsiooniga.
@@ -200,6 +205,78 @@ public class LessonsController {
         return Lesson3.morseCode(text);
     }
 
+    //14.04.2021
+
+    //Näide, kuidas sisestada objekti rohkem infot (arraylist):
+    //URL: localhost:8080/test/employeelist
+    @GetMapping("test/employeelist")
+    public List<Employee> test(){
+        Employee employee = new Employee();
+        employee.setName("Mari Mets");
+        employee.setAddress("Tehnika 44, Tallinn");
+        Employee employee1 = new Employee();
+        employee1.setName("Sven Soo");
+        employee1.setAddress("Lai 125, Tallinn");
+        /*
+        Mitmeid objekte saab lisada arraylisti abil
+        Luua arraylist, lisada sinna objektid ning muuta meetodi tagastusttüüp listiks (List<Employee>)
+         */
+
+        List<Employee> employeeList = new ArrayList<Employee>();
+        employeeList.add(employee);
+        employeeList.add(employee1);
+        return employeeList;
+    }
+
+
+    //Näide, kuidas sisestada objekti infot ühe kaupa:
+    //URL: localhost:8080/test1/employee
+    /*
+    @GetMapping("test1/employee")
+
+    public Employee test1(){
+        Employee employee = new Employee();
+        employee.setName("Triin Tuul");
+        employee.setAddress("Aia 5, Narva");
+        return employee;
+    }
+
+    @PostMapping("test1/employee")
+    public Employee testPost(@RequestBody Employee employee){
+        System.out.println(employee.getAddress());
+        return employee;
+    }
+    */
+
+    //URL: http://localhost:8080/employees
+    @GetMapping("employees")
+    public List<Employee> toGet(){
+        return employeeList;
+    }
+
+    //URL: http://localhost:8080/employees/{id}
+    @GetMapping("employees/{id}")
+    public Employee toGetId(@PathVariable("id") int id){
+        return employeeList.get(id);
+    }
+
+    //URL: http://localhost:8080/employees
+    @PostMapping("employees")
+    public void toAdd(@RequestBody Employee employee){
+        employeeList.add(employee);
+    }
+
+    //URL: http://localhost:8080/employees/{id}
+    @PutMapping("employees/{id}")
+    public void toReplace(@PathVariable("id") int id, @RequestBody Employee employee){
+        employeeList.set(id, employee);
+    }
+
+    //URL: http://localhost:8080/employees/{id}
+    @DeleteMapping("employees/{id}")
+    public void toDelete(@PathVariable("id") int id){
+        employeeList.remove(id);
+    }
 
 
 }

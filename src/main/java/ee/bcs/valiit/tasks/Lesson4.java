@@ -67,7 +67,7 @@ public class Lesson4 {
                     System.out.println(amount + " € has been added to account " + accountNr + "\n" +
                             "New balance is: " + balance + " €");
                 } else {
-                    System.out.println("This amount is not valid.\n");
+                    System.out.println("Invalid request\n");
                 }
 
             } else if (choice == 4) {
@@ -85,9 +85,9 @@ public class Lesson4 {
 
                 if (amount > 0 && balance >= amount) {
                     accountBalanceMap.put(accountNr, amount);
-                    System.out.println(amount + " has been withdrawn from your account.\n");
+                    System.out.println(amount + " has been withdrawn from your account\n");
                 } else {
-                    System.out.println("This amount is not valid\n");
+                    System.out.println("Invalid request\n");
                 }
 
             } else if (choice == 5) {
@@ -103,8 +103,9 @@ public class Lesson4 {
                 System.out.println("Insert the transfer amount:");
                 double amount = scanner.nextDouble();
                 scanner.nextLine();
+                //double balance = accountBalanceMap.get(accountNr);
 
-                if (accountBalanceMap.get(toAccount) > 0 && accountBalanceMap.get(toAccount) > 0) {
+                if (amount > 0) {
                     System.out.println("The transfer was successful\n");
                 } else {
                     System.out.println("The transfer was NOT successful\n");
