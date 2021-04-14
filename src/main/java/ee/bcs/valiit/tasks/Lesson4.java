@@ -103,10 +103,16 @@ public class Lesson4 {
                 System.out.println("Insert the transfer amount:");
                 double amount = scanner.nextDouble();
                 scanner.nextLine();
-                //double balance = accountBalanceMap.get(accountNr);
 
-                if (amount > 0) {
+                double fromBalance = accountBalanceMap.get(fromAccount);
+                double toBalance = accountBalanceMap.get(toAccount);
+
+
+                if (toBalance >= 0 && fromBalance > 0) {
+                    accountBalanceMap.put(fromAccount, fromBalance + amount);
+                    accountBalanceMap.put(toAccount, toBalance - amount);
                     System.out.println("The transfer was successful\n");
+
                 } else {
                     System.out.println("The transfer was NOT successful\n");
                 }

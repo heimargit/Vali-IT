@@ -9,10 +9,10 @@ import java.util.List;
 
 @RestController
 public class LessonsController {
-    public List<Employee> employeeList = new ArrayList<>();
+    public List<Employee> employeeList = new ArrayList<>(); //14.04.2021 - EXERCISE with Postman
 
 
-
+    //13.04.2021
     /*
     1. @RestController lisada klassi ette. See defineerib Springile, et tegemist on veebiaplikatsiooniga.
     2. loo uus meetod
@@ -205,6 +205,9 @@ public class LessonsController {
         return Lesson3.morseCode(text);
     }
 
+
+
+
     //14.04.2021
 
     //Näide, kuidas sisestada objekti rohkem infot (arraylist):
@@ -248,30 +251,48 @@ public class LessonsController {
     }
     */
 
+
+    //14.04.2021 EXERCISE with Postman
+
+    ///employee/ (GET) – must return all employees from static
+    //variable
+    //
     //URL: http://localhost:8080/employees
     @GetMapping("employees")
     public List<Employee> toGet(){
         return employeeList;
     }
 
+    ///employee/{id} (GET) – must return one employee (with
+    //that id)
+    //
     //URL: http://localhost:8080/employees/{id}
     @GetMapping("employees/{id}")
     public Employee toGetId(@PathVariable("id") int id){
         return employeeList.get(id);
     }
 
+    ///employee (POST) – must take data from request body and
+    //store it to static variable.
+    //
     //URL: http://localhost:8080/employees
     @PostMapping("employees")
     public void toAdd(@RequestBody Employee employee){
         employeeList.add(employee);
     }
 
+    ///employee/{id} (PUT) – must replace current employee with
+    //data from request body
+    //
     //URL: http://localhost:8080/employees/{id}
     @PutMapping("employees/{id}")
     public void toReplace(@PathVariable("id") int id, @RequestBody Employee employee){
         employeeList.set(id, employee);
     }
 
+    ///employee/{id} (DELETE) – must remove the employee with
+    //that id
+    //
     //URL: http://localhost:8080/employees/{id}
     @DeleteMapping("employees/{id}")
     public void toDelete(@PathVariable("id") int id){

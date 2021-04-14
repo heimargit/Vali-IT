@@ -12,5 +12,15 @@ public class Lesson3Hard {
         Random random = new Random();
         int i = random.nextInt(100);
         System.out.println(i);
+
+    }
+
+    public static int game(){
+        int randomNumber = (int)Math.random()*100;
+        System.out.println(randomNumber);
+
+
+
+        return randomNumber;
     }
 }
