@@ -65,7 +65,7 @@ public class Lesson4 {
                     balance = balance + amount;
                     accountBalanceMap.replace(accountNr, balance);
                     System.out.println(amount + " € has been added to account " + accountNr + "\n" +
-                            "New balance is: " + balance + " €");
+                            "New balance is: " + balance + " €\n");
                 } else {
                     System.out.println("Invalid request\n");
                 }
@@ -84,8 +84,9 @@ public class Lesson4 {
                 double balance = accountBalanceMap.get(accountNr);
 
                 if (amount > 0 && balance >= amount) {
-                    accountBalanceMap.put(accountNr, amount);
-                    System.out.println(amount + " has been withdrawn from your account\n");
+                    //accountBalanceMap.put(accountNr, amount);
+                    System.out.println(amount + " has been withdrawn from your account\n" +
+                            "The new balance is " + (accountBalanceMap.put(accountNr, amount)) + " €.\n");
                 } else {
                     System.out.println("Invalid request\n");
                 }
@@ -98,24 +99,24 @@ public class Lesson4 {
                 // And from account has enough money to do that transaction
                 System.out.println("Transfer money to another account. \nInsert the account number FROM which you are doing the transfer:");
                 String fromAccount = scanner.nextLine();
-                System.out.println("Insert the account number TO which you are doing the transfer:");
-                String toAccount = scanner.nextLine();
                 System.out.println("Insert the transfer amount:");
-                double amount = scanner.nextDouble();
+                double transferAmount = scanner.nextDouble();
                 scanner.nextLine();
 
-                double fromBalance = accountBalanceMap.get(fromAccount);
-                double toBalance = accountBalanceMap.get(toAccount);
 
+                if (transferAmount > 0) {
+                    if(transferAmount < accountBalanceMap.get(fromAccount)){
+                        System.out.println("Insert the account number TO which you are doing the transfer:");
+                        String toAccount = scanner.nextLine();
+                        System.out.println("The transfer was successful.\n" +
+                                "New balance is: " + (accountBalanceMap.get(fromAccount) - transferAmount) + " €\n");
 
-                if (toBalance >= 0 && fromBalance > 0) {
-                    accountBalanceMap.put(fromAccount, fromBalance + amount);
-                    accountBalanceMap.put(toAccount, toBalance - amount);
-                    System.out.println("The transfer was successful\n");
-
+                    } else {
+                        System.out.println("The transfer was NOT successful\n");
+                    }
                 } else {
-                    System.out.println("The transfer was NOT successful\n");
-                }
+                        System.out.println("Invalid request\n");
+                    }
 
             } else {
                 System.out.println("Unknown command");
