@@ -1,6 +1,6 @@
 package ee.bcs.valiit.lessons;
 
-import ee.bcs.valiit.solution.controller.SampleAccount;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -8,127 +8,58 @@ import java.util.Map;
 
 @RestController
 public class Lesson4bController {
-    private static Map<String, SampleAccount> accountBalanceMap = new HashMap<>();
+    private static Map<String, Double> accountBalanceMap = new HashMap<>();
 
 
-/*
-        if (line.equalsIgnoreCase("depositMoney")) {
-            System.out.println("Please enter account nr");
-            String accountNr = scanner.nextLine();
-            System.out.println("Please enter amount");
-            Double amount = scanner.nextDouble();
-            scanner.nextLine();
-            if (amount > 0) {
-                Double currentBalance = accountBalanceMap.get(accountNr);
-                Double newBalance = currentBalance + amount;
-                accountBalanceMap.put(accountNr, newBalance);
-            } else {
-                System.out.println("Sisestatud summa peab olema positiivne number");
-            }
-        } else if (line.equalsIgnoreCase("withdrawMoney")) {
-            System.out.println("Please enter account nr");
-            String accountNr = scanner.nextLine();
-            System.out.println("Please enter amount");
-            Double amount = scanner.nextDouble();
-            scanner.nextLine();
-            if (amount > 0) {
-                Double currentBalance = accountBalanceMap.get(accountNr);
-                Double newBalance = currentBalance - amount;
-                if (newBalance >= 0) {
-                    accountBalanceMap.put(accountNr, newBalance);
-                } else {
-                    System.out.println("Kontol pole piisavalt raha");
-                }
-            } else {
-                System.out.println("Sisestatud summa peab olema positiivne number");
-            }
-        } else if (line.equalsIgnoreCase("transferMoney")) {
-            System.out.println("Please enter from account nr");
-            String fromAccountNr = scanner.nextLine();
-            System.out.println("Please enter to account nr");
-            String toAccountNr = scanner.nextLine();
-            System.out.println("Please enter amount");
-            Double amount = scanner.nextDouble();
-            scanner.nextLine();
-            if (amount > 0) {
-                double fromAccountBalance = accountBalanceMap.get(fromAccountNr);
-                if (fromAccountBalance < amount) {
-                    System.out.println("Kontol pole piisavalt raha");
-                } else {
-                    double toAccountBalance = accountBalanceMap.get(toAccountNr);
-                    accountBalanceMap.put(fromAccountNr, fromAccountBalance - amount);
-                    accountBalanceMap.put(toAccountNr, toAccountBalance + amount);
-                }
-            } else {
-                System.out.println("Summa peab olema positiivne number");
-            }
-        }
-        */
-
-    // http://localhost:8080/sample/bank/createAccount?accountNr=EE123&balance=1245
-    @GetMapping("bank/createAccount")
-    public void createAccount(@RequestParam("accountNr") String accountNr,
-                              @RequestParam("balance") Double balance,
-                              @RequestParam("name") String ownerName) {
-        SampleAccount account = new SampleAccount();
-        account.setAccountNumber(accountNr);
-        account.setBalance(balance);
-        account.setOwnerName(ownerName);
-        account.setLocked(false);
-        accountBalanceMap.put(accountNr, account);
+    @GetMapping("bank/createaccount/{accountnumber}")
+    public void createAccount(@PathVariable("accountnumber") String accountNr, @PathVariable("balance") Double balance) {
+        accountBalanceMap.put(accountNr, balance);
     }
 
-    // http://localhost:8080/sample/bank/account
-    @PostMapping("bank/account")
-    public void createAccount2(@RequestBody SampleAccount request) {
-        accountBalanceMap.put(request.getAccountNumber(), request);
+    @GetMapping("bank/getbalance/{accountnumber}")
+    public String getBalance(@PathVariable("accountnumber") String accountNr) {
+        return "The balance is: " + accountBalanceMap.get(accountNr);
     }
 
-    // http://localhost:8080/sample/bank/account/EE123
-    @GetMapping("bank/account/{accountNumber}")
-    public String getBalance(@PathVariable("accountNumber") String accountNr){
-        return "Konto balanss on: " + accountBalanceMap.get(accountNr).getBalance();
-    }
-
-    @PostMapping("bank/{accountNumber}/{amount}")
-    public void depositMoney(@PathVariable("accountNumber") String accountNr,@PathVariable("amount") Double amount){
+    @PutMapping("bank/deposit/{accountnumber}/{deposit}")
+    public String deposit(@PathVariable("accountnumber") String accountNr, @PathVariable("deposit") Double amount) {
         if (amount > 0) {
-            //Double currentBalance = accountBalanceMap.get(accountNr);
-            //Double newBalance = currentBalance + amount;
-            //accountBalanceMap.put(accountNr, newBalance);
+            Double currentBalance = accountBalanceMap.get(accountNr);
+            Double newBalance = currentBalance + amount;
+            return "Money has been added to your account: " + accountBalanceMap.put(accountNr, newBalance);
         } else {
-            System.out.println("Sisestatud summa peab olema positiivne number");
+            return "Invalid request";
         }
     }
 
-
-
-//            if (line.equalsIgnoreCase("depositMoney")) {
-//        System.out.println("Please enter account nr");
-//        String accountNr = scanner.nextLine();
-//        System.out.println("Please enter amount");
-//        Double amount = scanner.nextDouble();
-//        scanner.nextLine();
-//        if (amount > 0) {
-//            Double currentBalance = accountBalanceMap.get(accountNr);
-//            Double newBalance = currentBalance + amount;
-//            accountBalanceMap.put(accountNr, newBalance);
-//        } else {
-//            System.out.println("Sisestatud summa peab olema positiivne number");
-//        }
-
-
-
-
-   // @PutMapping("bank/account/{accountNumber}/lock")
-    public String lock(@PathVariable("accountNumber") String accountNr){
-        return null;
+    @PutMapping("bank/withdraw/{accountnumber}/{withdraw}")
+    public String withdrawMoney(@PathVariable("accountnumber") String accountNr, @PathVariable("withdraw") Double amount) {
+        if (amount > 0) {
+            Double currentBalance = accountBalanceMap.get(accountNr);
+            Double newBalance = currentBalance - amount;
+            if (newBalance >= 0) {
+                return "Money has been withdrawn from your account: " + accountBalanceMap.put(accountNr, newBalance);
+            } else {
+                return "Invalid request";
+            }
+        } else {
+            return "Invalid request";
+        }
     }
 
-    @PutMapping("bank/account/{accountNumber}/unlock")
-    public String unlock(@PathVariable("accountNumber") String accountNr){
-        return null;
+    @PutMapping("bank/{fromaccount}/{toaccount}/{amount}")
+    public String transfer(@PathVariable("fromaccount") String fromAccountNr, @PathVariable("toaccount") String toAccountNr, @PathVariable("amount") Double amount) {
+        if (amount > 0) {
+            double fromAccountBalance = accountBalanceMap.get(fromAccountNr);
+            if (fromAccountBalance < amount) {
+                return "Not enough money on your account";
+            } else {
+                double toAccountBalance = accountBalanceMap.get(toAccountNr);
+                accountBalanceMap.put(fromAccountNr, fromAccountBalance - amount);
+                return "New balance is: " + accountBalanceMap.put(toAccountNr, toAccountBalance + amount);
+            }
+        } else {
+            return "Invalid request";
+        }
     }
-
-
 }
