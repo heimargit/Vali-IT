@@ -1,9 +1,11 @@
 package ee.bcs.valiit.lessons;
 
-public class CreateBankAccount {
+public class BankAccount {
 
     private String accountNr;
     private Double balance;
+    private boolean locked;
+    private String ownerName;
 
     public String getAccountNr() {
         return accountNr;
@@ -19,5 +21,21 @@ public class CreateBankAccount {
 
     public void setBalance(Double balance) {
         this.balance = balance;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 }
