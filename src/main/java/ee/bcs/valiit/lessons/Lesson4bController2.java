@@ -11,7 +11,8 @@ public class Lesson4bController2 {
     private static Map<String, BankAccount> accountBalanceMap = new HashMap<>();
 
 
-    @GetMapping("bank/createaccount2")
+    //URL: localhost:8080/bank2/createaccount2/?accountnumber=EE12345&?balance=0&?name=Mari
+    @GetMapping("bank2/createaccount2")
     public void createAccount(@RequestParam("accountnumber") String accountNr, @RequestParam("balance") Double balance, @RequestParam("name") String ownerName) {
         BankAccount account = new BankAccount();
         account.setAccountNr(accountNr);
@@ -21,14 +22,16 @@ public class Lesson4bController2 {
         accountBalanceMap.put(accountNr, account);
     }
 
-
-    @GetMapping("bank/getbalance2/{accountnumber}")
+    //URL: localhost:8080/bank2/getbalance2/{accountnumber}
+    @GetMapping("bank2/getbalance2/{accountnumber}")
     public String getBalance(@PathVariable("accountnumber") String accountNr) {
         return "The balance is: " + accountBalanceMap.get(accountNr).getBalance();
     }
 
+/*
 
-    @PutMapping("bank/deposit/{accountnumber}/{deposit}")
+    //URL: localhost:8080/bank2/deposit/{accountnumber}/{deposit}
+    @PutMapping("bank2/deposit/{accountnumber}/{deposit}")
     public String deposit(@PathVariable("accountnumber") String accountNr, @PathVariable("deposit") Double amount) {
         if (amount > 0) {
             // Double currentBalance = accountBalanceMap.get(accountNr).getBalance();
@@ -39,8 +42,8 @@ public class Lesson4bController2 {
         }
     }
 
-
-    @PutMapping("bank/withdraw/{accountnumber}/{withdraw}")
+    //URL: localhost:8080/bank2/withdraw/{accountnumber}/{withdraw}/{amount}
+    @PutMapping("bank2/withdraw/{accountnumber}/{withdraw}")
     public String withdrawMoney(@PathVariable("accountnumber") String accountNr, @PathVariable("withdraw") Double amount) {
         if (amount > 0) {
             Double currentBalance = accountBalanceMap.get(accountNr).getBalance();
@@ -55,8 +58,8 @@ public class Lesson4bController2 {
         }
     }
 
-
-    @PutMapping("bank/{fromaccount}/{toaccount}/{amount}")
+    //URL: localhost:8080/bank2/{fromaccount}/{toaccount}/{amount}
+    @PutMapping("bank2/{fromaccount}/{toaccount}/{amount}")
     public String transfer(@PathVariable("fromaccount") String fromAccountNr, @PathVariable("toaccount") String toAccountNr, @PathVariable("amount") Double amount) {
         if (amount > 0) {
             double fromAccountBalance = accountBalanceMap.get(fromAccountNr).getBalance();
@@ -81,4 +84,6 @@ public class Lesson4bController2 {
     public String unlock(@PathVariable("accountNumber") String accountNr) {
         return null;
     }
+
+ */
 }

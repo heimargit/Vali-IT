@@ -8,8 +8,6 @@ public class Lesson4b {
 
     // Store account nr as a key and account balance as value
 
-
-
     private static Map<String, Double> accountBalanceMap = new HashMap<>();
     private static Scanner scanner = new Scanner(System.in);
 

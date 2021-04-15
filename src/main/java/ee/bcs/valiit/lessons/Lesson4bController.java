@@ -10,7 +10,7 @@ import java.util.Map;
 public class Lesson4bController {
     private static Map<String, Double> accountBalanceMap = new HashMap<>();
 
-    //URL: localhost:8080/bank/createaccount/{accountnumber}
+    //URL: localhost:8080/bank/createaccount/{accountnumber}/{balance}
     @GetMapping("bank/createaccount/{accountnumber}/{balance}")
     public void createAccount(@PathVariable("accountnumber") String accountNr, @PathVariable("balance") Double balance) {
         accountBalanceMap.put(accountNr, balance);
