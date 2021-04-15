@@ -10,7 +10,7 @@ import java.util.Map;
 public class Lesson4bController {
     private static Map<String, SampleAccount> accountBalanceMap = new HashMap<>();
 
-    public static void main(String[] args) {
+
 /*
         if (line.equalsIgnoreCase("depositMoney")) {
             System.out.println("Please enter account nr");
@@ -64,7 +64,6 @@ public class Lesson4bController {
             }
         }
         */
-    }
 
     // http://localhost:8080/sample/bank/createAccount?accountNr=EE123&balance=1245
     @GetMapping("bank/createAccount")
@@ -102,7 +101,6 @@ public class Lesson4bController {
         }
     }
 
-    public void
 
 
 //            if (line.equalsIgnoreCase("depositMoney")) {
@@ -122,7 +120,7 @@ public class Lesson4bController {
 
 
 
-    @PutMapping("bank/account/{accountNumber}/lock")
+   // @PutMapping("bank/account/{accountNumber}/lock")
     public String lock(@PathVariable("accountNumber") String accountNr){
         return null;
     }
