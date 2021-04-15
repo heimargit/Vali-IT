@@ -33,7 +33,7 @@ public class Lesson4bController2 {
         if (amount > 0) {
             // Double currentBalance = accountBalanceMap.get(accountNr).getBalance();
             Double newBalance = accountBalanceMap.get(accountNr).getBalance() + amount;
-            //return "Money has been added to your account: " + accountBalanceMap.put(accountNr, newBalance);
+            return "Money has been added to your account: " + accountBalanceMap.put(accountNr, newBalance);
         } else {
             return "Invalid request";
         }
@@ -46,7 +46,7 @@ public class Lesson4bController2 {
             Double currentBalance = accountBalanceMap.get(accountNr).getBalance();
             Double newBalance = currentBalance - amount;
             if (newBalance >= 0) {
-                //return "Money has been withdrawn from your account: " + accountBalanceMap.put(accountNr, newBalance);
+                return "Money has been withdrawn from your account: " + accountBalanceMap.put(accountNr, newBalance);
             } else {
                 return "Invalid request";
             }
@@ -64,8 +64,8 @@ public class Lesson4bController2 {
                 return "Not enough money on your account";
             } else {
                 double toAccountBalance = accountBalanceMap.get(toAccountNr).getBalance();
-                //accountBalanceMap.put(fromAccountNr, fromAccountBalance - amount);
-                //return "New balance is: " + accountBalanceMap.put(toAccountNr, toAccountBalance + amount);
+                accountBalanceMap.put(fromAccountNr, fromAccountBalance - amount);
+                return "New balance is: " + accountBalanceMap.put(toAccountNr, toAccountBalance + amount);
             }
         } else {
             return "Invalid request";
