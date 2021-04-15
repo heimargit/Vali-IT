@@ -10,17 +10,19 @@ import java.util.Map;
 public class Lesson4bController {
     private static Map<String, Double> accountBalanceMap = new HashMap<>();
 
-
+    //URL: localhost:8080/bank/createaccount/{accountnumber}
     @GetMapping("bank/createaccount/{accountnumber}")
     public void createAccount(@PathVariable("accountnumber") String accountNr, @PathVariable("balance") Double balance) {
         accountBalanceMap.put(accountNr, balance);
     }
 
+    //URL: localhost:8080/bank/getbalance/{accountnumber}
     @GetMapping("bank/getbalance/{accountnumber}")
     public String getBalance(@PathVariable("accountnumber") String accountNr) {
         return "The balance is: " + accountBalanceMap.get(accountNr);
     }
 
+    //URL: localhost:8080/bank/deposit/{accountnumber}/{deposit}
     @PutMapping("bank/deposit/{accountnumber}/{deposit}")
     public String deposit(@PathVariable("accountnumber") String accountNr, @PathVariable("deposit") Double amount) {
         if (amount > 0) {
@@ -32,6 +34,7 @@ public class Lesson4bController {
         }
     }
 
+    //URL: localhost:8080/bank/withdraw/{accountnumber}/{withdraw}
     @PutMapping("bank/withdraw/{accountnumber}/{withdraw}")
     public String withdrawMoney(@PathVariable("accountnumber") String accountNr, @PathVariable("withdraw") Double amount) {
         if (amount > 0) {
@@ -47,6 +50,7 @@ public class Lesson4bController {
         }
     }
 
+    //URL: localhost:8080/bank/{fromaccount}/{toaccount}/{amount}
     @PutMapping("bank/{fromaccount}/{toaccount}/{amount}")
     public String transfer(@PathVariable("fromaccount") String fromAccountNr, @PathVariable("toaccount") String toAccountNr, @PathVariable("amount") Double amount) {
         if (amount > 0) {
