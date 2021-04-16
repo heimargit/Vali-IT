@@ -57,11 +57,11 @@ public class Lesson4bController {
     public String transfer(@PathVariable("fromaccount") String fromAccountNr, @PathVariable("toaccount") String toAccountNr, @PathVariable("amount") Double amount) {
 
         if (amount > 0) {
-            double fromAccountBalance = accountBalanceMap.get(fromAccountNr);
+            Double fromAccountBalance = accountBalanceMap.get(fromAccountNr);
             if (fromAccountBalance < amount) {
                 return "Not enough money on your account";
             } else {
-                double toAccountBalance = accountBalanceMap.get(toAccountNr);
+                Double toAccountBalance = accountBalanceMap.get(toAccountNr);
                 accountBalanceMap.put(fromAccountNr, fromAccountBalance - amount);
                 accountBalanceMap.put(toAccountNr, toAccountBalance + amount);
                 return "New balance is: " + accountBalanceMap.get(toAccountNr);
