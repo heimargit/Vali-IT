@@ -25,7 +25,7 @@ public class DemoController {
      */
 
 // URL: http://localhost:8080/sample/hello-world/Margit?action=Hei&action2=Goodbye!
-    @GetMapping("sample/hello-world/{nameInUrl}")
+    //@GetMapping("sample/hello-world/{nameInUrl}")
     public String demoApplication(@PathVariable("nameInUrl") String name, @RequestParam("action") String actionOne, @RequestParam("action2") String actionTwo){
         return actionOne + " " +  "It's me, "+ name + "! "+ actionTwo;
     }
