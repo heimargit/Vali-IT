@@ -1,6 +1,8 @@
 package ee.bcs.valiit.lessons;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -8,6 +10,11 @@ import java.util.Map;
 
 @RestController
 public class Lesson4bController {
+
+    @Autowired
+    private NamedParameterJdbcTemplate jdbcTemplate;
+
+
     private static Map<String, Double> accountBalanceMap = new HashMap<>();
 
     //URL: http://localhost:8080/createaccount/{accountnumber}/{balance}
@@ -19,7 +26,11 @@ public class Lesson4bController {
     //URL: http://localhost:8080/getbalance/{accountnumber}
     @GetMapping("getbalance/{accountnumber}")
     public String getBalance(@PathVariable("accountnumber") String accountNr) {
-        return "The balance is: " + accountBalanceMap.get(accountNr);
+        String sql = "SELECT balance FROM bank_accounts WHERE account_number =:EE123456789";
+        Map<String,Object> paramMap = new HashMap<>();
+        paramMap.put("EE123456789",accountNr);
+        Double balance = jdbcTemplate.queryForObject(sql, paramMap, Double.class);
+        return "The balance is: " + balance;
     }
 
     //URL: http://localhost:8080/deposit/{accountnumber}/{depositamount}
@@ -43,7 +54,7 @@ public class Lesson4bController {
             Double newBalance = currentBalance - amount;
             if (newBalance >= 0) {
                 accountBalanceMap.put(accountNr, newBalance);
-                return "The new balance is: "+ accountBalanceMap.get(accountNr);
+                return "The new balance is: " + accountBalanceMap.get(accountNr);
             } else {
                 return "Invalid request";
             }

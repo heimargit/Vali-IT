@@ -1,5 +1,7 @@
 package ee.bcs.valiit.solution.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -9,6 +11,13 @@ import java.util.Map;
 public class SampleBankController {
     private static Map<String, SampleAccount> accountBalanceMap = new HashMap<>();
 
+//<<<<<<< HEAD
+//=======
+    @Autowired
+    private NamedParameterJdbcTemplate jdbcTemplate;
+
+    public static void main(String[] args) {
+//>>>>>>> 0798acf5cdaca1f11f82d9e3671d59aa653f8c17
 /*
         if (line.equalsIgnoreCase("depositMoney")) {
             System.out.println("Please enter account nr");
@@ -63,29 +72,35 @@ public class SampleBankController {
         }
         */
 
-    // http://localhost:8080/sample/bank/createAccount?accountNr=EE123&balance=1245
-    @GetMapping("sample/bank/createAccount")
+    // http://localhost:8080/sample/bank/createAccount?accountNr=EE128&balance=2500
+  @GetMapping("sample/bank/createAccount")
     public void createAccount(@RequestParam("accountNr") String accountNr,
-                              @RequestParam("balance") Double balance,
-                              @RequestParam("name") String ownerName) {
-        SampleAccount account = new SampleAccount();
-        account.setAccountNumber(accountNr);
-        account.setBalance(balance);
-        account.setOwnerName(ownerName);
-        account.setLocked(false);
-        accountBalanceMap.put(accountNr, account);
+                              @RequestParam("balance") Double balance) {
+        String sql = "INSERT INTO account(account_number, balance) VALUES(:dbAccNo, :dbAmount)";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("dbAccNo", accountNr);
+        paramMap.put("dbAmount", balance);
+        jdbcTemplate.update(sql, paramMap);
     }
 
     // http://localhost:8080/sample/bank/account
     @PostMapping("sample/bank/account")
     public void createAccount2(@RequestBody SampleAccount request) {
-        accountBalanceMap.put(request.getAccountNumber(), request);
+        String sql = "INSERT INTO account(account_number, balance) VALUES(:dbAccNo, :dbAmount)";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("dbAccNo", request.getAccountNumber());
+        paramMap.put("dbAmount", request.getBalance());
+        jdbcTemplate.update(sql, paramMap);
     }
 
     // http://localhost:8080/sample/bank/account/EE123
     @GetMapping("sample/bank/account/{accountNumber}")
     public String getBalance(@PathVariable("accountNumber") String accountNr){
-        return "Konto balanss on: " + accountBalanceMap.get(accountNr).getBalance();
+        String sql = "SELECT balance FROM account WHERE account_number = :dbAccNo";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("dbAccNo", accountNr);
+        Double balance = jdbcTemplate.queryForObject(sql, paramMap, Double.class);
+        return "Konto balanss on: " + balance;
     }
 
     @PutMapping("sample/bank/account/{accountNumber}/lock")
