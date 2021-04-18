@@ -10,33 +10,42 @@ import java.util.Map;
 
 @RestController
 public class Lesson4bController {
-
-    @Autowired
-    private NamedParameterJdbcTemplate jdbcTemplate;
-
-
     private static Map<String, Double> accountBalanceMap = new HashMap<>();
 
-    //URL: http://localhost:8080/createaccount/{accountnumber}/{balance}
+    @Autowired // ehk Inversion of Control - vastutab, et objekte luua ja neid hallata; loome ühenduse andmebaasiga
+    private NamedParameterJdbcTemplate jdbcTemplate; //klass, mida kasutame. @Autowired inistsialiseerib selle.
+
+
+    //URL: http://localhost:8080/createaccount/EE003344680/300
     @PostMapping("createaccount/{accountnumber}/{balance}")
     public void createAccount(@PathVariable("accountnumber") String accountNr, @PathVariable("balance") Double balance) {
-        accountBalanceMap.put(accountNr, balance);
+        String sql = "INSERT INTO account (account_number, balance) VALUES(:dbAccNo, :dbAmount)";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("dbAccNo", accountNr);
+        paramMap.put("dbAmount", balance);
+        jdbcTemplate.update(sql, paramMap); //kahe muutuja kasutamine tähendab, et see meetod ei tagasta meile midagi
+        //accountBalanceMap.put(accountNr, balance);
     }
 
     //URL: http://localhost:8080/getbalance/{accountnumber}
     @GetMapping("getbalance/{accountnumber}")
     public String getBalance(@PathVariable("accountnumber") String accountNr) {
-        String sql = "SELECT balance FROM bank_accounts WHERE account_number =:EE123456789";
-        Map<String,Object> paramMap = new HashMap<>();
-        paramMap.put("EE123456789",accountNr);
-        Double balance = jdbcTemplate.queryForObject(sql, paramMap, Double.class);
+        //Selleks, et saada kätte balance peame kirjutama SQL lause:
+        String sql = "SELECT balance FROM account WHERE account_number =:dbAccNo"; //dbAccNo ehk defineerime muutuja, info, mida tahame sisse anda
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("dbAccNo", accountNr); //dbAccNo defineerime muutuja
+        Double balance = jdbcTemplate.queryForObject(sql, paramMap, Double.class); //Double.class on tagastustüüp
         return "The balance is: " + balance;
     }
+
 
     //URL: http://localhost:8080/deposit/{accountnumber}/{depositamount}
     @PutMapping("deposit/{accountnumber}/{depositamount}")
     public String deposit(@PathVariable("accountnumber") String accountNr, @PathVariable("depositamount") Double amount) {
         if (amount > 0) {
+            //String sql = "UPDATE account SET balance=:dbAmount WHERE account_number =:dbAccNo";
+            //Map<String, Object> paramMap = new HashMap<>();
+
             Double currentBalance = accountBalanceMap.get(accountNr);
             Double newBalance = currentBalance + amount;
             accountBalanceMap.put(accountNr, newBalance);
@@ -50,11 +59,15 @@ public class Lesson4bController {
     @PutMapping("withdraw/{accountnumber}/{withdrawamount}")
     public String withdrawMoney(@PathVariable("accountnumber") String accountNr, @PathVariable("withdrawamount") Double amount) {
         if (amount > 0) {
-            Double currentBalance = accountBalanceMap.get(accountNr);
-            Double newBalance = currentBalance - amount;
-            if (newBalance >= 0) {
-                accountBalanceMap.put(accountNr, newBalance);
-                return "The new balance is: " + accountBalanceMap.get(accountNr);
+            //String sql = "UPDATE account SET balance=:dbAmount WHERE account_number =:dbAccNo";
+            //Map<String, Object> paramMap = new HashMap<>();
+
+            Double balance = accountBalanceMap.get(accountNr);
+            //Double newBalance = balance - amount;
+            if (balance >= 0) {
+                balance = balance - amount;
+                accountBalanceMap.put(accountNr, balance);
+                return "The new balance is: " + balance; //accountBalanceMap.get(accountNr);
             } else {
                 return "Invalid request";
             }
@@ -63,19 +76,21 @@ public class Lesson4bController {
         }
     }
 
-    //URL: http://localhost:8080/transfer/{fromaccount}/{toaccount}/{amount}
-    @PutMapping("transfer/{fromaccount}/{toaccount}/{amount}")
-    public String transfer(@PathVariable("fromaccount") String fromAccountNr, @PathVariable("toaccount") String toAccountNr, @PathVariable("amount") Double amount) {
+    //URL: http://localhost:8080/transfer/{accountnumber}/{amount}
+    @PutMapping("transfer/{accountnumber}/{amount}")
+    public String transfer(@PathVariable("accountnumber") String accountNr, @PathVariable("amount") Double amount) {
 
         if (amount > 0) {
-            Double fromAccountBalance = accountBalanceMap.get(fromAccountNr);
-            if (fromAccountBalance < amount) {
+            //String sql = "UPDATE account SET balance=:dbAmount WHERE account_number =:dbAccNo";
+            //Map<String, Object> paramMap = new HashMap<>();
+
+            Double balance = accountBalanceMap.get(accountNr);
+            if (balance < amount) {
                 return "Not enough money on your account";
             } else {
-                Double toAccountBalance = accountBalanceMap.get(toAccountNr);
-                accountBalanceMap.put(fromAccountNr, fromAccountBalance - amount);
-                accountBalanceMap.put(toAccountNr, toAccountBalance + amount);
-                return "New balance is: " + accountBalanceMap.get(toAccountNr);
+                balance = balance - amount;
+                accountBalanceMap.put(accountNr, balance);
+                return "New balance is: " + balance;
             }
         } else {
             return "Invalid request";

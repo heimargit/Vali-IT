@@ -58,22 +58,25 @@ public class Lesson4bController2 {
         }
     }
 
-    //URL: http://localhost:8080/transfer2/{fromaccount}/{toaccount}/{amount}
-    @PutMapping("tansfer2/{fromaccount}/{toaccount}/{amount}")
-    public String transfer(@PathVariable("fromaccount") String fromAccountNr, @PathVariable("toaccount") String toAccountNr, @PathVariable("amount") Double amount) {
+        //URL: http://localhost:8080/transfer2/{accountnumber}/{amount}
+    @PutMapping("transfer2/{accountnumber}/{amount}")
+    public String transfer(@PathVariable("accountnumber") String accountNr, @PathVariable("amount") Double amount) {
+
         if (amount > 0) {
-            double fromAccountBalance = accountBalanceMap.get(fromAccountNr).getBalance();
-            if (fromAccountBalance < amount) {
+            Double balance = accountBalanceMap.get(accountNr);
+            if (balance < amount) {
                 return "Not enough money on your account";
             } else {
-                double toAccountBalance = accountBalanceMap.get(toAccountNr).getBalance();
-                accountBalanceMap.put(fromAccountNr, fromAccountBalance - amount);
-                return "New balance is: " + accountBalanceMap.put(toAccountNr, toAccountBalance + amount);
+                balance = balance - amount;
+                accountBalanceMap.put(accountNr, balance);
+                return "New balance is: " + balance;
             }
         } else {
             return "Invalid request";
         }
     }
+
+
 
     @PutMapping("lock/account/{accountNumber}/lock")
     public String lock(@PathVariable("accountNumber") String accountNr) {
