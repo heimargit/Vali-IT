@@ -11,15 +11,14 @@ import java.util.Map;
 public class SampleBankController {
     private static Map<String, SampleAccount> accountBalanceMap = new HashMap<>();
 
-//<<<<<<< HEAD
+    //<<<<<<< HEAD
 //=======
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     public static void main(String[] args) {
 //>>>>>>> 0798acf5cdaca1f11f82d9e3671d59aa653f8c17
-/*
-        if (line.equalsIgnoreCase("depositMoney")) {
+/*        if (line.equalsIgnoreCase("depositMoney")) {
             System.out.println("Please enter account nr");
             String accountNr = scanner.nextLine();
             System.out.println("Please enter amount");
@@ -70,7 +69,7 @@ public class SampleBankController {
                 System.out.println("Summa peab olema positiivne number");
             }
         }
-        */
+
 
     // http://localhost:8080/sample/bank/createAccount?accountNr=EE128&balance=2500
   @GetMapping("sample/bank/createAccount")
@@ -111,5 +110,6 @@ public class SampleBankController {
     @PutMapping("sample/bank/account/{accountNumber}/unlock")
     public String unlock(@PathVariable("accountNumber") String accountNr){
         return null;
+    }*/
     }
 }
