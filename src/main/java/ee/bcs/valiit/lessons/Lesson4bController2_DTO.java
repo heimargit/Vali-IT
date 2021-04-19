@@ -11,6 +11,9 @@ public class Lesson4bController2_DTO {
     private static Map<String, BankAccount> accountBalanceMap = new HashMap<>();
 
 
+    //SEE ON POOLELI -> ALUSTA ALGUSEST!
+
+
     //URL: http://localhost:8080/createaccount2/?accountnumber=EE12345&?balance=0&?name=Mari
     @GetMapping("createaccount2")
     public void createAccount(@RequestParam("accountnumber") String accountNr, @RequestParam("balance") Double balance, @RequestParam("name") String ownerName) {

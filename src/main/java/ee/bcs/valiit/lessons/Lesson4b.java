@@ -27,7 +27,7 @@ public class Lesson4b {
             } else if (line.equalsIgnoreCase("getBalance")) {
                 System.out.println("Please enter account nr");
                 String accountNr = scanner.nextLine();
-                System.out.println("Konto balanss on: " + accountBalanceMap.get(accountNr));
+                System.out.println("The balance is: " + accountBalanceMap.get(accountNr));
             }
 
             if (line.equalsIgnoreCase("depositMoney")) {
@@ -41,7 +41,7 @@ public class Lesson4b {
                     Double newBalance = currentBalance + amount;
                     accountBalanceMap.put(accountNr, newBalance);
                 } else {
-                    System.out.println("Sisestatud summa peab olema positiivne number");
+                    System.out.println("Invalid request");
                 }
             } else if (line.equalsIgnoreCase("withdrawMoney")) {
                 System.out.println("Please enter account nr");
@@ -55,30 +55,30 @@ public class Lesson4b {
                     if (newBalance >= 0) {
                         accountBalanceMap.put(accountNr, newBalance);
                     } else {
-                        System.out.println("Kontol pole piisavalt raha");
+                        System.out.println("Invalid request, not enough money.");
                     }
                 } else {
-                    System.out.println("Sisestatud summa peab olema positiivne number");
+                    System.out.println("Invalid request");
                 }
             } else if (line.equalsIgnoreCase("transferMoney")) {
-                System.out.println("Please enter from account nr");
+                System.out.println("Please enter from account nr:");
                 String fromAccountNr = scanner.nextLine();
-                System.out.println("Please enter to account nr");
+                System.out.println("Please enter to account nr:");
                 String toAccountNr = scanner.nextLine();
-                System.out.println("Please enter amount");
+                System.out.println("Please enter amount:");
                 Double amount = scanner.nextDouble();
                 scanner.nextLine();
                 if (amount > 0) {
                     double fromAccountBalance = accountBalanceMap.get(fromAccountNr);
                     if (fromAccountBalance < amount) {
-                        System.out.println("Kontol pole piisavalt raha");
+                        System.out.println("Invalid request");
                     } else {
                         double toAccountBalance = accountBalanceMap.get(toAccountNr);
                         accountBalanceMap.put(fromAccountNr, fromAccountBalance - amount);
                         accountBalanceMap.put(toAccountNr, toAccountBalance + amount);
                     }
                 } else {
-                    System.out.println("Summa peab olema positiivne number");
+                    System.out.println("Invalid request");
                 }
             } else {
                 System.out.println("Unknown command");

@@ -9,16 +9,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class Lesson4bController_SQL {
+public class Lesson4bController3_SQL {
     private static Map<String, Double> accountBalanceMap = new HashMap<>();
 
     @Autowired // ehk Inversion of Control - vastutab, et objekte luua ja neid hallata; loome ühenduse andmebaasiga
     private NamedParameterJdbcTemplate jdbcTemplate; //klass, mida kasutame. @Autowired inistsialiseerib selle.
 
 
-    //URL: http://localhost:8080/createaccount/EE003344680/300
-    @PostMapping("createaccount/{accountnumber}/{balance}")
+    //URL: http://localhost:8080/createaccount3/EE003344680/300
+    @PostMapping("createaccount3/{accountnumber}/{balance}")
     public void createAccount(@PathVariable("accountnumber") String accountNr, @PathVariable("balance") Double balance) {
+
+        //Loon uue konto INSERT meetodiga:
         String sql = "INSERT INTO account (account_number, balance) VALUES(:dbAccNo, :dbAmount)";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("dbAccNo", accountNr);
@@ -28,14 +30,15 @@ public class Lesson4bController_SQL {
         //accountBalanceMap.put(accountNr, balance);
     }
 
-    //URL: http://localhost:8080/getbalance/EE003344654
-    @GetMapping("getbalance/{accountnumber}")
+    //URL: http://localhost:8080/getbalance3/EE003344654
+    @GetMapping("getbalance3/{accountnumber}")
     public String getBalance(@PathVariable("accountnumber") String accountNr) {
-        //Selleks, et saada kätte balance kirjutab SQL lause:
+
+        //Selleks, et saada kätte balance kirjutan SQL lause:
         String sql = "SELECT balance FROM account WHERE account_number =:dbAccNo"; //dbAccNo ehk defineerime muutuja, info, mida tahame sisse anda
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("dbAccNo", accountNr); //dbAccNo defineerime muutuja
-        Double balance = jdbcTemplate.queryForObject(sql, paramMap, Double.class); //Double.class on tagastustüüp
+        Double balance = jdbcTemplate.queryForObject(sql, paramMap, Double.class); //Double.class on tagastustüüp (= Double balance)!
         return "The balance is: " + balance;
     }
 
@@ -61,9 +64,9 @@ public class Lesson4bController_SQL {
             jdbcTemplate.update(sqlAddAmount, paramMap2);
 
 
-           // Double currentBalance = accountBalanceMap.get(accountNr);
+            // Double currentBalance = accountBalanceMap.get(accountNr);
             //Double newBalance = currentBalance + amount;
-           // accountBalanceMap.put(accountNr, newBalance);
+            // accountBalanceMap.put(accountNr, newBalance);
             //return "The new balance is: " + accountBalanceMap.get(accountNr);
 
             return "The new balance is: " + newBalance;
@@ -73,8 +76,8 @@ public class Lesson4bController_SQL {
         }
     }
 
-    //URL: http://localhost:8080/withdraw/EE123456790/500
-    @PutMapping("withdraw/{accountnumber}/{withdrawamount}")
+    //URL: http://localhost:8080/withdraw3/EE123456790/500
+    @PutMapping("withdraw3/{accountnumber}/{withdrawamount}")
     public String withdrawMoney(@PathVariable("accountnumber") String accountNr, @PathVariable("withdrawamount") Double amount) {
 
         //Valin vastava konto, et saada kätte selle konto balance:
@@ -89,6 +92,7 @@ public class Lesson4bController_SQL {
 
             if (currentBalance >= 0) {
 
+                //Võtan kontolt välja summa:
                 String sqlNewBalance = "UPDATE account SET balance =:dbBalance WHERE account_number=:dbAccNo";
                 Map<String, Object> paramMap2 = new HashMap<>();
                 paramMap2.put("dbAccNo", accountNr);
@@ -107,8 +111,8 @@ public class Lesson4bController_SQL {
         }
     }
 
-    //URL: http://localhost:8080/transfer/EE123456790/EE003344680/200
-    @PutMapping("transfer/{fromaccountnumber}/{toaccountnumber}/{amount}")
+    //URL: http://localhost:8080/transfer3/EE123456790/EE003344680/200
+    @PutMapping("transfer3/{fromaccountnumber}/{toaccountnumber}/{amount}")
     public String transfer(@PathVariable("fromaccountnumber") String fromAccountNr, @PathVariable("toaccountnumber") String toAccountNr, @PathVariable("amount") Double amount) {
 
         //Valin vastava konto, et saada kätte FROM konto balance:
@@ -124,13 +128,13 @@ public class Lesson4bController_SQL {
         Double currentToBalance = jdbcTemplate.queryForObject(sqlToBalance, paramMap2, Double.class);
 
         if (amount > 0) {
-
             //Double balance = accountBalanceMap.get(accountNr);
 
             if (currentFromBalance < amount) {
                 return "Not enough money on your account";
             } else {
 
+                //Kannan kontolt üle summa:
                 String sqlNewFromBalance = "UPDATE account SET balance =:dbFromBalance WHERE account_number=:dbFromAccNo";
                 Map<String, Object> paramMap3 = new HashMap<>();
                 paramMap3.put("dbFromAccNo", fromAccountNr);
@@ -138,13 +142,13 @@ public class Lesson4bController_SQL {
                 paramMap3.put("dbFromBalance", newFromBalance);
                 jdbcTemplate.update(sqlNewFromBalance, paramMap3);
 
+                //Summa lisamine teisele kontole:
                 String sqlNewToBalance = "UPDATE account SET balance =:dbToBalance WHERE account_number=:dbToAccNo";
                 Map<String, Object> paramMap4 = new HashMap<>();
                 paramMap4.put("dbToAccNo", toAccountNr);
                 Double newToBalance = currentToBalance + amount;
                 paramMap4.put("dbToBalance", newToBalance);
                 jdbcTemplate.update(sqlNewToBalance, paramMap4);
-
 
                 return "New balance is: " + newFromBalance;
 
