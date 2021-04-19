@@ -30,7 +30,7 @@ public class Lesson4bController {
     //URL: http://localhost:8080/getbalance/{accountnumber}
     @GetMapping("getbalance/{accountnumber}")
     public String getBalance(@PathVariable("accountnumber") String accountNr) {
-        //Selleks, et saada kätte balance peame kirjutama SQL lause:
+        //Selleks, et saada kätte balance kirjutab SQL lause:
         String sql = "SELECT balance FROM account WHERE account_number =:dbAccNo"; //dbAccNo ehk defineerime muutuja, info, mida tahame sisse anda
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("dbAccNo", accountNr); //dbAccNo defineerime muutuja
