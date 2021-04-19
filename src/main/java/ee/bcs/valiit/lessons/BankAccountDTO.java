@@ -1,6 +1,6 @@
 package ee.bcs.valiit.lessons;
 
-public class BankAccount {
+public class BankAccountDTO {
 
     private String accountNr;
     private Double balance;

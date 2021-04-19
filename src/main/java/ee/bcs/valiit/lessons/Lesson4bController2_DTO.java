@@ -8,7 +8,7 @@ import java.util.Map;
 
 @RestController
 public class Lesson4bController2_DTO {
-    private static Map<String, BankAccount> accountBalanceMap = new HashMap<>();
+    private static Map<String, BankAccountDTO> accountBalanceMap = new HashMap<>();
 
 
     //SEE ON POOLELI -> ALUSTA ALGUSEST!
@@ -17,7 +17,7 @@ public class Lesson4bController2_DTO {
     //URL: http://localhost:8080/createaccount2/?accountnumber=EE12345&?balance=0&?name=Mari
     @GetMapping("createaccount2")
     public void createAccount(@RequestParam("accountnumber") String accountNr, @RequestParam("balance") Double balance, @RequestParam("name") String ownerName) {
-        BankAccount account = new BankAccount();
+        BankAccountDTO account = new BankAccountDTO();
         account.setAccountNr(accountNr);
         account.setOwnerName(ownerName);
         account.setBalance(balance);

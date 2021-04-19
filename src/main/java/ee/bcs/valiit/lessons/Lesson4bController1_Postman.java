@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class Lesson4bController1_PostmanURLs {
+public class Lesson4bController1_Postman {
     private static Map<String, Double> accountBalanceMap = new HashMap<>();
 
 
