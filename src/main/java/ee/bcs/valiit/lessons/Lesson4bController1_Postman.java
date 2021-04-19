@@ -79,17 +79,18 @@ public class Lesson4bController1_Postman {
         }
     }
 
-
-/*
-    @PutMapping("lock/account/{accountNumber}/lock")
+    //URL: http://localhost:8080/lockaccount1/{toaccountnumber}
+    @PutMapping("lockaccount1/{accountNumber}")
     public String lock(@PathVariable("accountNumber") String accountNr) {
-        return null;
+        accountBalanceMap.get(accountNr);
+        return "Account has been locked";
     }
 
-    @PutMapping("unlock/account/{accountNumber}/unlock")
+    //URL: http://localhost:8080/unlockaccount1/{toaccountnumber}
+    @PutMapping("unlockaccount1/{accountNumber}")
     public String unlock(@PathVariable("accountNumber") String accountNr) {
-        return null;
+        accountBalanceMap.get(accountNr);
+        return "Account has been unlocked";
     }
 
- */
 }
