@@ -1,4 +1,4 @@
-package ee.bcs.valiit.lessons;
+package ee.bcs.valiit.exercises.controller;
 
 
 import org.springframework.web.bind.annotation.*;
@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class Lesson4bController1_Postman {
+public class Lesson4bController1Postman {
     private static Map<String, Double> accountBalanceMap = new HashMap<>();
 
 

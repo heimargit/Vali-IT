@@ -1,4 +1,4 @@
-package ee.bcs.valiit.lessons;
+package ee.bcs.valiit.exercises;
 
 import java.util.HashMap;
 import java.util.Map;

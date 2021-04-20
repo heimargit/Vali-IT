@@ -1,4 +1,4 @@
-package ee.bcs.valiit.lessons;
+package ee.bcs.valiit.exercises.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class Lesson4bController3_SQL {
+public class Lesson4bController3SQL {
     private static Map<String, Double> accountBalanceMap = new HashMap<>();
 
     @Autowired // ehk Inversion of Control - vastutab, et objekte luua ja neid hallata; loome ühenduse andmebaasiga
-    private NamedParameterJdbcTemplate jdbcTemplate; //klass, mida kasutame. @Autowired inistsialiseerib selle.
+    private NamedParameterJdbcTemplate jdbcTemplate; //klass, mida kasutame. @Autowired initsialiseerib selle.
 
 
     //URL: http://localhost:8080/createaccount3/EE003344680/300
@@ -27,7 +27,6 @@ public class Lesson4bController3_SQL {
         paramMap.put("dbAmount", balance);
         jdbcTemplate.update(sql, paramMap); //kahe muutuja kasutamine tähendab, et see meetod ei tagasta meile midagi
 
-        //accountBalanceMap.put(accountNr, balance);
     }
 
     //URL: http://localhost:8080/getbalance3/EE003344654
@@ -38,7 +37,7 @@ public class Lesson4bController3_SQL {
         String sql = "SELECT balance FROM account WHERE account_number =:dbAccNo"; //dbAccNo ehk defineerime muutuja, info, mida tahame sisse anda
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("dbAccNo", accountNr); //dbAccNo defineerime muutuja
-        Double balance = jdbcTemplate.queryForObject(sql, paramMap, Double.class); //Double.class on tagastustüüp (= Double balance)!
+        Double balance = jdbcTemplate.queryForObject(sql, paramMap, Double.class); //Double.class is return type: Double (balance) must = Double.class!
         return "The balance is: " + balance;
     }
 
@@ -63,12 +62,6 @@ public class Lesson4bController3_SQL {
             paramMap2.put("dbBalance", newBalance);
             jdbcTemplate.update(sqlAddAmount, paramMap2);
 
-
-            // Double currentBalance = accountBalanceMap.get(accountNr);
-            //Double newBalance = currentBalance + amount;
-            // accountBalanceMap.put(accountNr, newBalance);
-            //return "The new balance is: " + accountBalanceMap.get(accountNr);
-
             return "The new balance is: " + newBalance;
 
         } else {
@@ -87,8 +80,6 @@ public class Lesson4bController3_SQL {
         Double currentBalance = jdbcTemplate.queryForObject(sqlBalance, paramMap1, Double.class);
 
         if (amount > 0) {
-            //Double balance = accountBalanceMap.get(accountNr);
-            //Double newBalance = balance - amount;
 
             if (currentBalance >= 0) {
 
@@ -100,9 +91,8 @@ public class Lesson4bController3_SQL {
                 paramMap2.put("dbBalance", newBalance);
                 jdbcTemplate.update(sqlNewBalance, paramMap2);
 
-                //balance = balance - amount;
-                //accountBalanceMap.put(accountNr, balance);
-                return "The new balance is: " + newBalance; //accountBalanceMap.get(accountNr);
+
+                return "The new balance is: " + newBalance;
             } else {
                 return "Invalid request";
             }
@@ -128,7 +118,6 @@ public class Lesson4bController3_SQL {
         Double currentToBalance = jdbcTemplate.queryForObject(sqlToBalance, paramMap2, Double.class);
 
         if (amount > 0) {
-            //Double balance = accountBalanceMap.get(accountNr);
 
             if (currentFromBalance < amount) {
                 return "Not enough money on your account";
@@ -152,12 +141,25 @@ public class Lesson4bController3_SQL {
 
                 return "New balance is: " + newFromBalance;
 
-                //balance = balance - amount;
-                //accountBalanceMap.put(accountNr, balance);
-                //return "New balance is: " + balance;
             }
         } else {
             return "Invalid request";
         }
+    }
+
+    @PutMapping("lock3/{accountnumber}")
+    public String lock(@PathVariable("accountnumber") String accountNr) {
+        String sqlLock = "SELECT lock FROM account WHERE account_number =:dbAccNo";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("dbAccNo", accountNr);
+        Boolean isLocked = jdbcTemplate.queryForObject(sqlLock, paramMap, Boolean.class);
+
+        if (isLocked){
+            return "Account is locked";
+        }else{
+
+            return "Account has now been locked";
+        }
+
     }
 }

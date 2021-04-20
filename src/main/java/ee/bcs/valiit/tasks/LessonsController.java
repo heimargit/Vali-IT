@@ -1,9 +1,8 @@
 package ee.bcs.valiit.tasks;
 
-import ee.bcs.valiit.lessons.Employee;
+import ee.bcs.valiit.exercises.Employee;
 import org.springframework.web.bind.annotation.*;
 
-import javax.lang.model.element.Name;
 import java.util.ArrayList;
 import java.util.List;
 

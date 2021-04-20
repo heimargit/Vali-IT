@@ -1,4 +1,4 @@
-package ee.bcs.valiit.lessons;
+package ee.bcs.valiit.exercises;
 
 /*Make a dto object returning files name, address
 Use alt + insert shortcut to generate get and set functions

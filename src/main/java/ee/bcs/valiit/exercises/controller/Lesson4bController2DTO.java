@@ -1,13 +1,14 @@
-package ee.bcs.valiit.lessons;
+package ee.bcs.valiit.exercises.controller;
 
 
+import ee.bcs.valiit.exercises.BankAccountDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class Lesson4bController2_DTO {
+public class Lesson4bController2DTO {
     private static Map<String, BankAccountDTO> accountBalanceMap = new HashMap<>();
 
 
