@@ -147,19 +147,46 @@ public class Lesson4bController3SQL {
         }
     }
 
+    //URL: http://localhost:8080/lock3/EE0011111
     @PutMapping("lock3/{accountnumber}")
-    public String lock(@PathVariable("accountnumber") String accountNr) {
+    public String lockAccount(@PathVariable("accountnumber") String accountNr) {
         String sqlLock = "SELECT lock FROM account WHERE account_number =:dbAccNo";
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("dbAccNo", accountNr);
-        Boolean isLocked = jdbcTemplate.queryForObject(sqlLock, paramMap, Boolean.class);
+        Map<String, Object> paramMap1 = new HashMap<>();
+        paramMap1.put("dbAccNo", accountNr);
+        Boolean isLocked = jdbcTemplate.queryForObject(sqlLock, paramMap1, Boolean.class);
 
-        if (isLocked){
-            return "Account is locked";
-        }else{
-
+        if (!isLocked) {
+            String sqlSetLock = "UPDATE account SET lock=:dbLock WHERE account_number =:dbAccNo";
+            Map<String, Object> paramMap2 = new HashMap<>();
+            paramMap2.put("dbAccNo", accountNr);
+            Boolean setLock = true;
+            paramMap2.put("dbLock",setLock);
+            jdbcTemplate.update(sqlSetLock, paramMap2);
             return "Account has now been locked";
+        } else {
+            return "Account is locked";
         }
 
+    }
+
+    //URL: http://localhost:8080/unlock3/EE0011111
+    @PutMapping("unlock3/{accountnumber}")
+    public String unLockAccount(@PathVariable("accountnumber") String accountNr){
+        String sqlUnlock = "SELECT lock FROM account WHERE account_number =:dbAccNo";
+        Map<String, Object> paramMap1 = new HashMap<>();
+        paramMap1.put("dbAccNo", accountNr);
+        Boolean isLocked = jdbcTemplate.queryForObject(sqlUnlock, paramMap1, Boolean.class);
+
+        if (isLocked) {
+            String sqlSetUnlock = "UPDATE account SET lock=:dbUnlock WHERE account_number =: dbAccNo";
+            Map<String, Object> paramMap2 = new HashMap<>();
+            paramMap2.put("dbAccNo", accountNr);
+            Boolean setUnlock = false;
+            paramMap2.put("dbUnlock", setUnlock);
+            jdbcTemplate.update(sqlSetUnlock, paramMap2);
+            return "Account has been unlocked";
+        } else {
+            return "Account is unlocked";
+        }
     }
 }
