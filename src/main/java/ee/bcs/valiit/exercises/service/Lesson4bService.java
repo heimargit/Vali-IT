@@ -19,8 +19,8 @@ public class Lesson4bService {
 
 
 
-    public void createAccount(String accountNr, Double balance) {
-        bankAccountRepository.createAccount(accountNr, balance);
+    public void createAccount(String accountNr, Double balance, String ownerName) {
+        bankAccountRepository.createAccount(accountNr, balance, ownerName);
     }
 
     public Double getBalance(String accountNr) {

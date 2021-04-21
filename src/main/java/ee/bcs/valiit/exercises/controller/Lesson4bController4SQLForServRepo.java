@@ -17,10 +17,10 @@ public class Lesson4bController4SQLForServRepo {
     private Lesson4bService bankAccountService;
 
 
-    //URL: http://localhost:8080/createaccount4/EE0011111/10000
-    @PostMapping("createaccount4/{accountnumber}/{balance}")
-    public void createAccount(@PathVariable("accountnumber") String accountNr, @PathVariable("balance") Double balance) {
-        bankAccountService.createAccount(accountNr, balance);
+    //URL: http://localhost:8080/createaccount4/EE0011112/10000/Margit Loo/
+    @PostMapping("createaccount4/{accountnumber}/{balance}/{name}")
+    public void createAccount(@PathVariable("accountnumber") String accountNr, @PathVariable("balance") Double balance, @PathVariable("name") String ownerName) {
+        bankAccountService.createAccount(accountNr, balance, ownerName);
     }
 
     //URL: http://localhost:8080/getbalance4/EE0011111
