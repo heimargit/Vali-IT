@@ -189,4 +189,16 @@ public class Lesson4bController3SQL {
             return "Account is unlocked";
         }
     }
+
+    //URL: http://localhost:8080/deleteaccount3/EE0011112/Margit Loo
+    @DeleteMapping("deleteaccount3/{accountnumber}/{name}")
+    public void deleteAccount(@PathVariable("accountnumber") String accountNr, @PathVariable("name") String ownerName) {
+
+        //Kustutan konto DELETE meetodiga:
+        String sqlDelete = "DELETE FROM account WHERE account_number =:dbAccNo AND owner_name =:dbName";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("dbAccNo", accountNr);
+        paramMap.put("dbName", ownerName);
+        jdbcTemplate.update(sqlDelete, paramMap);
+    }
 }

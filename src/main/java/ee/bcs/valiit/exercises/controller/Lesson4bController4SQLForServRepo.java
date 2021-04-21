@@ -46,4 +46,10 @@ public class Lesson4bController4SQLForServRepo {
     public String transfer(@PathVariable("fromaccountnumber") String fromAccountNr, @PathVariable("toaccountnumber") String toAccountNr, @PathVariable("amount") Double amount) {
         return bankAccountService.transfer(fromAccountNr, toAccountNr, amount);
     }
+
+    //URL: http://localhost:8080/deleteaccount4/EE0011112/Margit Loo
+    @DeleteMapping("deleteaccount4/{accountnumber}/{name}")
+    public String deleteAccount(@PathVariable("accountnumber") String accountNr, @PathVariable("name") String ownerName) {
+        return bankAccountService.deleteAccount(accountNr, ownerName);
+    }
 }

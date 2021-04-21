@@ -3,6 +3,8 @@ package ee.bcs.valiit.exercises.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,6 +55,14 @@ public class Lesson4bRepository {
                 paramMap4.put("dbToBalance", amount);
                 jdbcTemplate.update(sqlNewToBalance, paramMap4);
 
+    }
+
+    public void deleteAccount(String accountNr, String ownerName) {
+        String sqlDelete = "DELETE FROM account WHERE account_number =:dbAccNo AND owner_name =:dbName";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("dbAccNo", accountNr);
+        paramMap.put("dbName", ownerName);
+        jdbcTemplate.update(sqlDelete, paramMap);
     }
 
 }

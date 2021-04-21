@@ -5,7 +5,11 @@ import ee.bcs.valiit.exercises.repository.Lesson4bRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Service
@@ -16,7 +20,6 @@ public class Lesson4bService {
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
-
 
 
     public void createAccount(String accountNr, Double balance, String ownerName) {
@@ -32,7 +35,7 @@ public class Lesson4bService {
             Double balance = bankAccountRepository.getBalance(accountNr);
             Double newBalance = balance + amount;
             bankAccountRepository.updateBalance(accountNr, newBalance);
-            return "New balance is: "+ newBalance;
+            return "New balance is: " + newBalance;
         } else {
             return "Invalid request";
         }
@@ -44,7 +47,7 @@ public class Lesson4bService {
             if (currentBalance >= 0) {
                 Double newBalance = currentBalance - amount;
                 bankAccountRepository.updateBalance(accountNr, newBalance);
-                return "New balance is: "+ newBalance;
+                return "New balance is: " + newBalance;
             } else {
                 return "Invalid request";
             }
@@ -68,7 +71,10 @@ public class Lesson4bService {
         } else {
             return "Invalid request";
         }
+    }
 
-
+    public String deleteAccount(String accountNr, String ownerName) {
+        bankAccountRepository.deleteAccount(accountNr, ownerName);
+        return "The account has been deleted";
     }
 }
