@@ -1,7 +1,10 @@
-/*body{*/
-/*    background-color: ivory;*/
-/*}*/
-
-/*h6{*/
-/*    */
-/*}*/
+body{
+    background-color: honeydew;
+}
+h1{
+    color: midnightblue;
+    font-family: Calibri;
+}
+p{
+    color: ivory;
+}

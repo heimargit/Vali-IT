@@ -1,6 +1,8 @@
 package ee.bcs.valiit.exercises.service;
 
 
+import ee.bcs.valiit.exercises.hibernate.Account;
+import ee.bcs.valiit.exercises.hibernate.AccountHibernateRepository;
 import ee.bcs.valiit.exercises.repository.Lesson4bRepository;
 import ee.bcs.valiit.solution.exception.SampleApplicationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class Lesson4bService {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private AccountHibernateRepository hibernateRepository;
+
 
 
     public void createAccount(String accountNr, String ownerName, Double balance) {
@@ -29,7 +34,9 @@ public class Lesson4bService {
     }
 
     public Double getBalance(String accountNr) {
-        return bankAccountRepository.getBalance(accountNr);
+        Account account = hibernateRepository.getOne(accountNr); //hibernate meetodi abil
+        return account.getBalance();
+       // return bankAccountRepository.getBalance(accountNr);
     }
 
     public String deposit(String accountNr, Double amount) {
