@@ -16,14 +16,13 @@ public class Lesson4bRepository {
     private NamedParameterJdbcTemplate jdbcTemplate;
 
 
-    public void createAccount(String accountNr, Double balance, String ownerName) {
-        String sql = "INSERT INTO account (account_number, balance, owner_name) VALUES(:dbAccNo, :dbAmount, :dbName)";
+    public void createAccount(String accountNr, String ownerName, Double balance) {
+        String sql = "INSERT INTO account (account_number, owner_name, balance) VALUES(:dbAccNo, :dbName, :dbBalance)";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("dbAccNo", accountNr);
-        paramMap.put("dbAmount", balance);
+        paramMap.put("dbBalance", balance);
         paramMap.put("dbName", ownerName);
         jdbcTemplate.update(sql, paramMap);
-
     }
 
     public Double getBalance(String accountNr) {
