@@ -43,10 +43,16 @@ public class Lesson4bService {
         if (amount < 0) {
             throw new SampleApplicationException("Negative amount request is not allowed");
         }
-        Double balance = bankAccountRepository.getBalance(accountNr);
-        Double newBalance = balance + amount;
-        bankAccountRepository.updateBalance(accountNr, newBalance);
-        return "New balance is: " + newBalance;
+        Account account = hibernateRepository.getOne(accountNr);
+        Double balance = account.getBalance() + amount;
+        account.setBalance(balance);
+        hibernateRepository.save(account);
+        return "New balance is:" + balance;
+
+//        Double balance = bankAccountRepository.getBalance(accountNr);
+//        Double newBalance = balance + amount;
+//        bankAccountRepository.updateBalance(accountNr, newBalance);
+//        return "New balance is: " + newBalance;
     }
 
     public String withdrawMoney(String accountNr, Double amount) {
