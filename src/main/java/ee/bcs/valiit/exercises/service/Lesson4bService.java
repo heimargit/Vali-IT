@@ -47,7 +47,7 @@ public class Lesson4bService {
         Double balance = account.getBalance() + amount;
         account.setBalance(balance);
         hibernateRepository.save(account);
-        return "New balance is:" + balance;
+        return "New balance is: " + balance;
 
 //        Double balance = bankAccountRepository.getBalance(accountNr);
 //        Double newBalance = balance + amount;
