@@ -71,7 +71,9 @@ public class Lesson0 {
     // Trüki muutuja sisu välja
     public static void excersie4() {
         String x = "\\\"\\\\\"\"";
+        String y = "\\\"\\\\\"\"";
 
         System.out.println("x: " + x);
+        System.out.println("y="+ y);
     }
 }

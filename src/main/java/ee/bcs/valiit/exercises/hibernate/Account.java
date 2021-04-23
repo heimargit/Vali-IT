@@ -1,18 +1,16 @@
 package ee.bcs.valiit.exercises.hibernate;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Table(name = "account")
 
 @Entity
 public class Account {
     @Id
+   // @GeneratedValue(strategy = GenerationType.IDENTITY) - lisatakse juhul, kui tabelis on id column
    // @Column(name = "account_number")
-    private String accountNumber;
+    private String accountNumber; //nimetused siin peavad võrduma tabelis olevate columnide nimedega. Javas camelcase = SQLis SQLi süntaks (nt _ kasutamine)
     private Double balance;
     private String ownerName;
     private Boolean lock;
