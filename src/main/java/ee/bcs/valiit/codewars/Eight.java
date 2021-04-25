@@ -1,7 +1,12 @@
 package ee.bcs.valiit.codewars;
 
+import java.util.Arrays;
+
 public class Eight {
     public static void main(String[] args) {
+
+        int[] arr = {6, 5, 1};
+        System.out.println(Arrays.toString(sumOfDifferences(new int[]{2, 5, 1})));
 
     }
 
@@ -18,4 +23,33 @@ public class Eight {
         return age;
     }
 
+    /*
+    Your task is to sum the differences between consecutive pairs in the array in descending order.
+    For example:
+    sumOfDifferences([2, 1, 10])
+    Returns 9
+    Descending order: [10, 2, 1]
+    Sum: (10 - 2) + (2 - 1) = 8 + 1 = 9
+    If the array is empty or the array has only one element the result should be 0 (Nothing in Haskell).
+     */
+
+    public static int[] sumOfDifferences(int[] arr) {
+        int sum = 0;
+
+        for (int j = 1; j < arr.length - 1; j++) {
+            for (int i = 1; i < arr.length - 1; i++) {
+                if (arr[i - 1] < arr[i]) {
+                    int theFirstElement = arr[i - 1];
+                    arr[i] = arr[i - 1];
+                    arr[i - 1] = theFirstElement;
+                }
+            }
+        }
+        for (int k = 0; k < arr.length - 1; k++) {
+            sum += (arr[k] - arr[k + 1]);
+        }
+        System.out.println(Arrays.toString(arr));
+        return arr;
+
+    }
 }

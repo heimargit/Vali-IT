@@ -62,10 +62,10 @@ public class Lesson3 {
 
         for (int j = 1; j < a.length - 1; j++) {
             for (int i = 1; i < a.length - 1; i++) {  //
-                if (a[0] > a[i]) {
-                    int theSmallest = a[0];  //defineerin a[0] kui kõige väiksema väärtusega arvu asukoha
-                    a[0] = a[i + 1];         //et väikseim arv (a[0]) on suurem, kui tema kõrval olev arv, siis liigutan a[0]-i edasi (vahetan kohad, st liigutan suurema arvu edasi)
-                    a[i + 1] = theSmallest;  //nüüd on a[i+1] asukohal väikseim arv
+                if (a[i-1] > a[i]) {
+                    int theSmallest = a[i-1];  //defineerin a[0] kui kõige väiksema väärtusega arvu asukoha
+                    a[i] = a[i -1];         //et väikseim arv (a[0]) on suurem, kui tema kõrval olev arv, siis liigutan a[0]-i edasi (vahetan kohad, st liigutan suurema arvu edasi)
+                    a[i - 1] = theSmallest;  //nüüd on a[i+1] asukohal väikseim arv
                 }
             }
         }
