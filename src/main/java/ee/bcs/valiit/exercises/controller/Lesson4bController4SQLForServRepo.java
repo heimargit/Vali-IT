@@ -17,7 +17,7 @@ public class Lesson4bController4SQLForServRepo {
     private Lesson4bService bankAccountService;
 
 
-    //URL: http://localhost:8080/createaccount4/EE0011112/10000/Margit Loo/10000/
+    //URL: http://localhost:8080/createaccount4/{accountnumber}/{name}/{balance}
     @PostMapping("createaccount4/{accountnumber}/{name}/{balance}")
     public void createAccount(@PathVariable("accountnumber") String accountNr, @PathVariable("name") String ownerName, @PathVariable("balance") Double balance) {
         bankAccountService.createAccount(accountNr, ownerName, balance);

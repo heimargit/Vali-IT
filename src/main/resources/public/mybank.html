@@ -1,50 +1,157 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
-        <meta charset="UTF-8">
-        <title>Bank account</title>
+    <meta charset="UTF-8">
+    <title>Bank account</title>
     <style>
         body {
             background-color: oldlace;
         }
+
         h1 {
             color: midnightblue;
             font-family: "Calibri";
+            font-size: xxx-large;
         }
-        h4 {
+
+        h2 {
             color: midnightblue;
             font-family: "Calibri";
+            font-size: large;
         }
+        h3 {
+            color: midnightblue;
+            font-family: "Calibri";
+            font-size: x-large;
+        }
+
         p.test {
             color: oldlace;
         }
-        th{
+
+        th {
             color: midnightblue;
             font-family: "Arial Narrow";
         }
     </style>
+
+    <!--Lisan favicon.ico:-->
+    <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGn69/xaS4f8WkuH/FpLh/xaS4f8WkuH/GIrT/xp+vf8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF5Pi/xeT4v8Xk+L/F5Pi/xeT4v8Xk+L/F5Pi/xeT4v8Xk+L/F5Pi/wAAAAAAAAAAAAAAAAAAAAAAAAAAGZXk/xmV5P8ZleT/GZXk/xmV5P8Z6///Gev//xmV5P8ZleT/GZXk/xmV5P8ZleT/AAAAAAAAAAAAAAAAAAAAABqW5f8aluX/Gpbl/xXo/f8V6v7/Fer+/xXq/v8V6v7/Gpbl/xqW5f8aluX/Gpbl/wAAAAAAAAAAAAAAAAAAAAAcmOf/HJjn/xyY5/8ejdT/Ho/Y/xHo/f8R6P3/Eej9/xHo/f8cmOf/HJjn/xyY5/8AAAAAAAAAAAAAAAAAAAAAHZrp/x2a6f8dmun/HZrp/wzn+/8M5/v/DOf7/wzn+/8dmun/HZrp/x2a6f8dmun/AAAAAAAAAAAAAAAAAAAAAB+b6v8fm+r/H5vq/wjl+v8I5fr/COX6/wjl+v8fm+r/H5vq/x+b6v8fm+r/H5vq/wAAAAAAAAAAAAAAAAAAAAAgnez/IJ3s/yCd7P8hld7/BOT5/wTk+f8E5Pn/BOT5/yCd7P8gnez/IJ3s/yCd7P8AAAAAAAAAAAAAAAAAAAAAAAAAACKe7f8inu3/Ip7t/yOS2f8E5Pn/BOT5/yKe7f8inu3/Ip7t/yKe7f8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjoO//I6Dv/yOg7/8joO//JJTb/yOf7f8joO//I6Dv/yOg7/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACWh8PclofD/JaHw/yWh8P8lofD/JaHw/yWh8P8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACPN9/8jzff/I833/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAopfT/KKX0/yil9P8opfTHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAppvX/Kab1/ymm9f8ppvX/Kab1/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAArqPf/AAAAAAAAAAAAAAAAK6j3/wAAAAApp/d3AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8A8AAOAHAADAAwAAwAMAAMADAADAAwAAwAMAAMADAADgBwAA4A8AAPAfAAD8fwAA/D8AAPg/AAD3fwAA//8AAA=="
+          rel="icon" type="image/x-icon"/>
+
 </head>
 <body>
 
 <h1 align="center">BANK ACCOUNT</h1>
-<h4 align="center">welcome - this is your bank account's overview</h4>
+<h2 align="center">welcome - this is your account's overview</h2>
 
 <table align="center" border="0" cellpadding="30" cellspacing="30">
 
-    <tr align="center" valign="center" bgcolor="#fdf5e6" >
-        <th>CREATE A NEW ACCOUNT</th>
-        <th>GET BALANCE</th>
-        <th>PAYMENTS</th>
-        <th>DELETE ACCOUNT</th>
+    <tr align="left" valign="top" bgcolor="#fdf5e6">
+        <th><h3>CREATE A NEW ACCOUNT</h3></th>
+        <th>
+            Insert Owner' name: <br>
+            <input id="ownerName1"><br>
+            <br>
+            Insert the account number: <br>
+            <input id="accountNumber1"><br>
+            <br>
+            <button id="createAccountButton">create account</button>
+        </th>
     </tr>
-    <tr bgcolor="#faebd7" >
-        <th>CREATE A NEW ACCOUNT</th>
-        <th>GET BALANCE</th>
-        <th>PAYMENTS</th>
-        <th>DELETE ACCOUNT</th>
+
+    <tr align="left" valign="top" bgcolor="#fdf5e6">
+        <th><h3>GET BALANCE</h3></th>
+        <th>
+            Insert the account number: <br>
+            <input id="accountNumber2"><br>
+            <br>
+            <button id="getBalanceButton">get balance</button>
+        </th>
+    </tr>
+
+    <tr align="left" valign="top" bgcolor="#fdf5e6">
+        <th><h3>PAYMENTS</h3></th>
+        <th>
+            ADD BALANCE<BR>
+            <br>
+            Insert the account number:<br>
+            <input id="accountNumber3"><br>
+            <br>
+            Insert the amount:<br>
+            <input id="amount3"><br>
+            <br>
+            <button id="addBalanceButton">add balance</button>
+        </th>
+        <th>
+            MAKE A TRANSFER<BR>
+            <br>
+            Insert your account number:<br>
+            <input id="accountNumber4"><br>
+            <br>
+            Insert the account number to whom you want to make a transfer:<br>
+            <input id="accountNumber5"><br>
+            <br>
+            Insert the transfer amount:<br>
+            <input id="amount5"><br>
+            <br>
+            <button id="makeATransferButton">transfer</button>
+        </th>
+    </tr>
+
+    <tr align="left" valign="top" bgcolor="#fdf5e6">
+        <th><h3>DELETE ACCOUNT</h3></th>
+        <th>
+            Insert Owner' name: <br>
+            <input id="ownerName6"><br>
+            <br>
+            Insert the account number: <br>
+            <input id="accountNumber6"><br>
+            <br>
+            <button id="deleteAccountButton">delete account</button>
+        </th>
     </tr>
 
 </table>
+
+<script>
+
+    let ownerName1 = document.getElementById("ownerName1");
+    let accountNumber1 = document.getElementById("accountNumber1");
+    let createAccountButton = document.getElementById("createAccountButton");
+    let getBalanceButton = document.getElementById("getBalanceButton");
+
+    // createAccountButton.onclick = function () {
+    //     let requestObject = {
+    //         'ownerName1' : ownerName1.value,
+    //         'accountNumber1': accountNumber1.value,
+    //         'balance': 0
+    //     }
+    //     let url = "http://localhost:8080/createaccount4/" + accountNumber1.value + ownerName1.value;
+    //     let configuration = {
+    //         method: 'POST',
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify(requestObject)
+    //     }
+    //     fetch(url, configuration);
+    // }
+    //
+    // getBalanceButton.onclick = function () {
+    //     let requestObject = {
+    //         'accountNumber': accountNumber.value,
+    //         'balance': 0
+    //     }
+    //     fetch("http://localhost:8080/sample/bank/account/" + accountNumber.value)
+    //         .then(response => response.text())
+    //         .then(function (response) { // selle asemel ma võiksin kirjutada response => alert(response)
+    //             alert(response)
+    //         })
+    // }
+
+</script>
+
 
 
 </body>
