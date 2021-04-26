@@ -28,15 +28,14 @@ public class Lesson4bService {
     private AccountHibernateRepository hibernateRepository;
 
 
-
-    public void createAccount(String accountNr, String ownerName, Double balance) {
-        bankAccountRepository.createAccount(accountNr, ownerName, balance);
+    public void createAccount(String accountNr, String ownerName) {
+        bankAccountRepository.createAccount(accountNr, ownerName, 0.0);
     }
 
     public Double getBalance(String accountNr) {
         Account account = hibernateRepository.getOne(accountNr); //hibernate meetodi abil
         return account.getBalance();
-       // return bankAccountRepository.getBalance(accountNr);
+        // return bankAccountRepository.getBalance(accountNr);
     }
 
     public String deposit(String accountNr, Double amount) {
@@ -69,17 +68,19 @@ public class Lesson4bService {
     }
 
     public String transfer(String fromAccountNr, String toAccountNr, Double amount) {
-        Double currentFromBalance = bankAccountRepository.getBalance(fromAccountNr);
-        Double currentToBalance = bankAccountRepository.getBalance(toAccountNr);
         if (amount < 0) {
             throw new SampleApplicationException("Negative amount request is not allowed");
         }
+        Double currentFromBalance = bankAccountRepository.getBalance(fromAccountNr);
+        Double currentToBalance = bankAccountRepository.getBalance(toAccountNr);
         if (currentFromBalance < amount || currentFromBalance <= 0) {
             throw new SampleApplicationException("Not enough balance");
         }
         Double newFromBalance = currentFromBalance - amount;
         Double newToBalance = currentToBalance + amount;
-        bankAccountRepository.transfer(fromAccountNr, toAccountNr, amount);
+        bankAccountRepository.updateBalance(fromAccountNr, newFromBalance);
+        bankAccountRepository.updateBalance(toAccountNr, newToBalance);
+        //bankAccountRepository.transfer(fromAccountNr, toAccountNr, newToBalance);
         return "Transaction was successful.";
     }
 

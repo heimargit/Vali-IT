@@ -19,6 +19,7 @@
             font-family: "Calibri";
             font-size: large;
         }
+
         h3 {
             color: midnightblue;
             font-family: "Calibri";
@@ -57,6 +58,9 @@
             <input id="accountNumber1"><br>
             <br>
             <button id="createAccountButton">create account</button>
+            <br>
+            <br>
+            <span id="createAccountAnswer"></span>
         </th>
     </tr>
 
@@ -67,6 +71,9 @@
             <input id="accountNumber2"><br>
             <br>
             <button id="getBalanceButton">get balance</button>
+            <br>
+            <br>
+            <span id="getBalanceAnswer"></span>
         </th>
     </tr>
 
@@ -82,6 +89,9 @@
             <input id="amount3"><br>
             <br>
             <button id="addBalanceButton">add balance</button>
+            <br>
+            <br>
+            <span id="addBalanceAnswer"></span>
         </th>
         <th>
             MAKE A TRANSFER<BR>
@@ -96,6 +106,9 @@
             <input id="amount5"><br>
             <br>
             <button id="makeATransferButton">transfer</button>
+            <br>
+            <br>
+            <span id="makeATransferAnswer"></span>
         </th>
     </tr>
 
@@ -109,6 +122,9 @@
             <input id="accountNumber6"><br>
             <br>
             <button id="deleteAccountButton">delete account</button>
+            <br>
+            <br>
+            <span id="deleteAccountAnswer"></span>
         </th>
     </tr>
 
@@ -116,42 +132,98 @@
 
 <script>
 
-    let ownerName1 = document.getElementById("ownerName1");
-    let accountNumber1 = document.getElementById("accountNumber1");
+    let name = document.getElementById("ownerName1");
+    let accountNr = document.getElementById("accountNumber1");
     let createAccountButton = document.getElementById("createAccountButton");
+
+    createAccountButton.onclick = function () {
+        let configuration = {
+            method: 'POST',
+        }
+        let createAccountAnswer = document.getElementById("createAccountAnswer");
+
+        fetch("http://localhost:8080/createaccount4/" + accountNr.value + "/" + name.value, configuration)
+            .then(response => response.text())
+            .then(function (response) {
+                createAccountAnswer.innerText = "The account has been created"
+            })
+    }
+
+
+    let accountNr2 = document.getElementById("accountNumber2");
     let getBalanceButton = document.getElementById("getBalanceButton");
 
-    // createAccountButton.onclick = function () {
-    //     let requestObject = {
-    //         'ownerName1' : ownerName1.value,
-    //         'accountNumber1': accountNumber1.value,
-    //         'balance': 0
-    //     }
-    //     let url = "http://localhost:8080/createaccount4/" + accountNumber1.value + ownerName1.value;
-    //     let configuration = {
-    //         method: 'POST',
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify(requestObject)
-    //     }
-    //     fetch(url, configuration);
-    // }
-    //
-    // getBalanceButton.onclick = function () {
-    //     let requestObject = {
-    //         'accountNumber': accountNumber.value,
-    //         'balance': 0
-    //     }
-    //     fetch("http://localhost:8080/sample/bank/account/" + accountNumber.value)
-    //         .then(response => response.text())
-    //         .then(function (response) { // selle asemel ma võiksin kirjutada response => alert(response)
-    //             alert(response)
-    //         })
-    // }
+    getBalanceButton.onclick = function () {
+        let getBalanceAnswer = document.getElementById("getBalanceAnswer");
+
+        fetch("http://localhost:8080/getbalance4/" + accountNr2.value)
+            .then(response => response.text())
+            .then(function (response) {
+                getBalanceAnswer.innerText = "The balance is: " + response + " €"
+            })
+    }
+
+    let amount3 = document.getElementById("amount3");
+    let accountNr3 = document.getElementById("accountNumber3");
+    let addBalanceButton = document.getElementById("addBalanceButton");
+
+
+    let configuration = {
+        method: 'PUT',
+    }
+
+    addBalanceButton.onclick = function () {
+        let addBalanceAnswer = document.getElementById("addBalanceAnswer");
+
+        fetch("http://localhost:8080/deposit4/" + accountNr3.value + "/" + amount3.value, configuration)
+            .then(function (x) {
+                if (x.status > 200) {
+                    x.json().then(response => addBalanceAnswer.innerText = response.message)
+                } else {
+                    x.text().then(response => addBalanceAnswer.innerText = response + " €")
+                }
+            });
+    }
+
+    let amount5 = document.getElementById("amount5");
+    let accountNr4 = document.getElementById("accountNumber4");
+    let accountNr5 = document.getElementById("accountNumber5");
+    let makeATransferButton = document.getElementById("makeATransferButton");
+
+    makeATransferButton.onclick = function () {
+        let configuration = {
+            method: 'PUT',
+        }
+        let makeATransferAnswer = document.getElementById("makeATransferAnswer");
+
+        fetch("http://localhost:8080/transfer4/" + accountNr4.value + "/" + accountNr5.value + "/" + amount5.value, configuration)
+            .then(function (x) {
+                if (x.status > 200) {
+                    x.json().then(response => makeATransferAnswer.innerText = response.message)
+                } else {
+                    x.text().then(response => makeATransferAnswer.innerText = response)
+                }
+            });
+    }
+
+    let accountNr6 = document.getElementById("accountNumber6");
+    let name6 = document.getElementById("ownerName6");
+    let deleteAccountButton = document.getElementById("deleteAccountButton");
+
+    deleteAccountButton.onclick = function () {
+        let configuration = {
+            method: 'DELETE',
+        }
+        let deleteAccountAnswer = document.getElementById("deleteAccountAnswer");
+
+        fetch("http://localhost:8080/deleteaccount4/" + accountNr6.value + "/" + name6.value, configuration)
+            .then(response => response.text())
+            .then(function (response) {
+                deleteAccountAnswer.innerText = "The account has been deleted"
+            })
+    };
 
 </script>
-
 
 
 </body>

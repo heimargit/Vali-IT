@@ -39,22 +39,22 @@ public class Lesson4bRepository {
         paramMap2.put("dbAccNo", accountNr);
         paramMap2.put("dbBalance", amount);
         jdbcTemplate.update(sqlAddAmount, paramMap2);
+        //return jdbcTemplate.queryForObject(sqlAddAmount, paramMap2, Double.class); //lisasin, et tagastada Double
     }
 
-    public void transfer(String fromAccountNr, String toAccountNr, Double amount) {
-                String sqlNewFromBalance = "UPDATE account SET balance =:dbFromBalance WHERE account_number=:dbFromAccNo";
-                Map<String, Object> paramMap3 = new HashMap<>();
-                paramMap3.put("dbFromAccNo", fromAccountNr);
-                paramMap3.put("dbFromBalance", amount);
-                jdbcTemplate.update(sqlNewFromBalance, paramMap3);
-
-                String sqlNewToBalance = "UPDATE account SET balance =:dbToBalance WHERE account_number=:dbToAccNo";
-                Map<String, Object> paramMap4 = new HashMap<>();
-                paramMap4.put("dbToAccNo", toAccountNr);
-                paramMap4.put("dbToBalance", amount);
-                jdbcTemplate.update(sqlNewToBalance, paramMap4);
-
-    }
+//    public void transfer(String fromAccountNr, String toAccountNr, Double amount) {
+//                String sqlNewFromBalance = "UPDATE account SET balance =:dbNewFromBalance WHERE account_number=:dbFromAccNo";
+//                Map<String, Object> paramMap3 = new HashMap<>();
+//                paramMap3.put("dbFromAccNo", fromAccountNr);
+//                paramMap3.put("dbNewFromBalance", amount);
+//                jdbcTemplate.update(sqlNewFromBalance, paramMap3);
+//
+//                String sqlNewToBalance = "UPDATE account SET balance =:dbNewToBalance WHERE account_number=:dbToAccNo";
+//                Map<String, Object> paramMap4 = new HashMap<>();
+//                paramMap4.put("dbToAccNo", toAccountNr);
+//                paramMap4.put("dbNewToBalance", amount);
+//                jdbcTemplate.update(sqlNewToBalance, paramMap4);
+//    }
 
     public void deleteAccount(String accountNr, String ownerName) {
         String sqlDelete = "DELETE FROM account WHERE account_number =:dbAccNo AND owner_name =:dbName";
