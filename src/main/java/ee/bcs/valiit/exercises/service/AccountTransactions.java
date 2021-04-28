@@ -1,4 +1,4 @@
-package ee.bcs.valiit.sample.oop;
+package ee.bcs.valiit.exercises.service;
 
 public class AccountTransactions {
     private String accountNumber;

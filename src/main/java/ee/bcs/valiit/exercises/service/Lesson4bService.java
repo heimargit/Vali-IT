@@ -3,15 +3,15 @@ package ee.bcs.valiit.exercises.service;
 
 import ee.bcs.valiit.exercises.hibernate.Account;
 import ee.bcs.valiit.exercises.hibernate.AccountHibernateRepository;
+import ee.bcs.valiit.exercises.repository.AccountRowMapper;
 import ee.bcs.valiit.exercises.repository.Lesson4bRepository;
 import ee.bcs.valiit.solution.exception.SampleApplicationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -87,5 +87,10 @@ public class Lesson4bService {
     public String deleteAccount(String accountNr, String ownerName) {
         bankAccountRepository.deleteAccount(accountNr, ownerName);
         return "The account has been deleted";
+    }
+
+    public List<AccountTransactions> getAllAccounts() {
+        String sql = "SELECT * FROM account";
+        return jdbcTemplate.query(sql, new HashMap(), new AccountRowMapper());
     }
 }

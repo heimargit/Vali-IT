@@ -1,11 +1,11 @@
 package ee.bcs.valiit.exercises.repository;
 
-import ee.bcs.valiit.sample.oop.AccountTransactions;
+import ee.bcs.valiit.exercises.service.AccountTransactions;
+import ee.bcs.valiit.solution.controller.SampleAccount2;
+import ee.bcs.valiit.solution.repository.SampleAccount2RowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.HashMap;
 import java.util.List;
@@ -66,9 +66,9 @@ public class Lesson4bRepository {
         jdbcTemplate.update(sqlDelete, paramMap);
     }
 
-//    public List<AccountTransactions> get getAllAccounts(){
-//        String sql = "SELECT * FROM account";
-//        return jdbcTemplate.queryForObject(sql, new paramMap, new AccountRowMapper);
-//    }
+    public List<AccountTransactions> getAllAccounts(){
+        String sql = "SELECT * FROM account";
+        return jdbcTemplate.query(sql, new HashMap(), new AccountRowMapper());
+    }
 
 }
