@@ -2,6 +2,7 @@ package ee.bcs.valiit.exercises.controller;
 
 
 import ee.bcs.valiit.exercises.service.Lesson4bService;
+import ee.bcs.valiit.sample.oop.AccountTransactions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,4 +59,5 @@ public class Lesson4bController4SQLForServRepo {
     public String deleteAccount(@PathVariable("accountnumber") String accountNr, @PathVariable("name") String ownerName) {
         return bankAccountService.deleteAccount(accountNr, ownerName);
     }
+
 }
