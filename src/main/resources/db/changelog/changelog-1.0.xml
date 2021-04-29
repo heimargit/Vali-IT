@@ -29,6 +29,16 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="2021-04-29 add all_accounts" author="Margit">
+        <createTable tableName="all_accounts">
+            <column name="username" type="text">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="password" type="text"/>
+        </createTable>
+    </changeSet>
+
+
 
     <!--
         <changeSet id="1" author="Siim">
