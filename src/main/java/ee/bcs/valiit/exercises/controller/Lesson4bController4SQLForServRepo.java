@@ -41,28 +41,28 @@ public class Lesson4bController4SQLForServRepo {
         return bankAccountService.deposit(accountNr, amount);
     }
 
-    //URL: http://localhost:8080/withdraw4/EE0011111/1000
+    //URL: http://localhost:8080/api/withdraw4/EE0011111/1000
 //    @CrossOrigin
     @PutMapping("/withdraw4/{accountnumber}/{withdrawamount}")
     public String withdrawMoney(@PathVariable("accountnumber") String accountNr, @PathVariable("withdrawamount") Double amount) {
         return bankAccountService.withdrawMoney(accountNr, amount);
     }
 
-    //URL: http://localhost:8080/transfer4/EE0011111/EE003344680/200
+    //URL: http://localhost:8080/api/transfer4/EE0011111/EE003344680/200
 //    @CrossOrigin
     @PutMapping("/transfer4/{fromaccountnumber}/{toaccountnumber}/{amount}")
     public String transfer(@PathVariable("fromaccountnumber") String fromAccountNr, @PathVariable("toaccountnumber") String toAccountNr, @PathVariable("amount") Double amount) {
         return bankAccountService.transfer(fromAccountNr, toAccountNr, amount);
     }
 
-    //URL: http://localhost:8080/deleteaccount4/EE0011112/Margit Loo
+    //URL: http://localhost:8080/api/deleteaccount4/EE0011112/Margit Loo
 //    @CrossOrigin
     @DeleteMapping("/deleteaccount4/{accountnumber}/{name}")
     public String deleteAccount(@PathVariable("accountnumber") String accountNr, @PathVariable("name") String ownerName) {
         return bankAccountService.deleteAccount(accountNr, ownerName);
     }
 
-    //URL: http://localhost:8080/getallaccounts
+    //URL: http://localhost:8080/api/getallaccounts
 //    @CrossOrigin
     @GetMapping("/getallaccounts")
     public List<AccountTransactions> getAllAccounts(){
