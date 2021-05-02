@@ -66,9 +66,26 @@ public class Lesson4bRepository {
         jdbcTemplate.update(sqlDelete, paramMap);
     }
 
-    public List<AccountTransactions> getAllAccounts(){
+    public List<AccountTransactions> getAllAccounts() {
         String sql = "SELECT * FROM account";
         return jdbcTemplate.query(sql, new HashMap(), new AccountRowMapper());
     }
+
+//    public String login(String username) {
+//        String sql = "SELECT password FROM all_accounts WHERE username =:dbUsername";
+//        Map<String, Object> paramMap = new HashMap<>();
+//        paramMap.put("dbUsername", username);
+//        return jdbcTemplate.queryForObject(sql, paramMap, String.class);
+//    }
+
+
+//    public void createUser(String username, String password) {
+//        String sql = "INSERT INTO all_accounts VALUES(:dbUsername, :dbPassword)";
+//        Map<String, Object> paramMap = new HashMap<>();
+//        paramMap.put("dbUsername", username);
+//        paramMap.put("dbPassword", password);
+//        jdbcTemplate.update(sql, paramMap);
+//
+//    }
 
 }

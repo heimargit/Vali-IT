@@ -8,6 +8,7 @@ import ee.bcs.valiit.exercises.repository.Lesson4bRepository;
 import ee.bcs.valiit.solution.exception.SampleApplicationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -26,8 +27,13 @@ public class Lesson4bService {
     @Autowired
     private AccountHibernateRepository hibernateRepository;
 
+    @Autowired
+
+    private PasswordEncoder passwordEncoder;
+
 
     public void createAccount(String accountNr, String ownerName) {
+       // String encodedPassword = passwordEncoder.encode(password);
         bankAccountRepository.createAccount(accountNr, ownerName, 0.0);
     }
 
@@ -92,4 +98,5 @@ public class Lesson4bService {
         String sql = "SELECT * FROM account";
         return jdbcTemplate.query(sql, new HashMap(), new AccountRowMapper());
     }
+
 }
