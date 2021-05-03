@@ -24,7 +24,7 @@ public class LoginRepository {
 
 
     public void createUser(String username, String password) {
-        String sql = "INSERT INTO all_accounts VALUES(:dbUsername, :dbPassword)";
+        String sql = "INSERT INTO all_accounts(username, password) VALUES(:dbUsername, :dbPassword)";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("dbUsername", username);
         paramMap.put("dbPassword", password);
