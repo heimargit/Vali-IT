@@ -28,7 +28,7 @@ public class Lesson4bRepository {
     }
 
     public Double getBalance(String accountNr) {
-        String sql = "SELECT balance FROM all_accounts WHERE account_number =:dbAccNo";
+        String sql = "SELECT balance FROM account WHERE account_number =:dbAccNo";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("dbAccNo", accountNr);
         return jdbcTemplate.queryForObject(sql, paramMap, Double.class);
